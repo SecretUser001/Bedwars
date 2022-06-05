@@ -10,9 +10,13 @@ public interface BedwarsItem {
 
 	public ItemStack getItem();
 
+	public String getName();
+	
 	public Category getCategory();
 
 	public Currency getCost();
 
+	public String getDescription();
+	
 	public void clicked(Player player);
 }

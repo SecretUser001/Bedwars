@@ -1,0 +1,7 @@
+name: Bedwars
+author: bkcraft
+version: 1.0
+main: bkcraft.bedwars.Main
+
+commands:
+  game:

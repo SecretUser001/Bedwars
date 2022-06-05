@@ -12,24 +12,24 @@ import bkcraft.bedwars.game.shop.GUI.GUI;
 
 public class InventoryHandler implements Listener {
 
-	@EventHandler
-	public void onInventoryClose(InventoryCloseEvent event) {
-		GUI.openShops.remove(event.getPlayer());
-	}
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent event) {
+	GUI.openShops.remove(event.getPlayer());
+    }
 
-	@EventHandler
-	public void onInventoryClick(InventoryClickEvent event) {
-		if (GUI.openShops.contains((Player) event.getWhoClicked())) {
-			Player player = (Player) event.getWhoClicked();
-			event.setCancelled(true);
-			if (!(event.getInventory().getItem(event.getSlot()).getType() == Material.AIR)) {
-				if (event.getSlot() < 9) {
-					GUI.open(player, Category
-							.valueOf(event.getInventory().getItem(event.getSlot()).getItemMeta().getDisplayName()));
-				} else if (GUI.itemSlots.contains(event.getSlot())) {
-					GUI.slotNumbers.get(GUI.openCategory.get(player)).get(event.getSlot()).clicked(player);
-				}
-			}
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+	if (GUI.openShops.contains((Player) event.getWhoClicked())) {
+	    Player player = (Player) event.getWhoClicked();
+	    event.setCancelled(true);
+	    if (!(event.getInventory().getItem(event.getSlot()).getType() == Material.AIR)) {
+		if (event.getSlot() < 9) {
+		    GUI.open(player, Category
+			    .valueOf(event.getInventory().getItem(event.getSlot()).getItemMeta().getDisplayName()));
+		} else if (GUI.itemSlots.contains(event.getSlot())) {
+		    GUI.slotNumbers.get(GUI.openCategory.get(player)).get(event.getSlot()).clicked(player);
 		}
+	    }
 	}
+    }
 }

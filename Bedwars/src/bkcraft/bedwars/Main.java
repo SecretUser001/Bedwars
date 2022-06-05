@@ -15,7 +15,7 @@ import bkcraft.bedwars.events.InventoryHandler;
 import bkcraft.bedwars.events.JoinHandler;
 import bkcraft.bedwars.events.VillagerHandler;
 import bkcraft.bedwars.game.Game;
-import bkcraft.bedwars.game.shop.items.FireballBWI;
+import bkcraft.bedwars.game.shop.items.utils.FireballBWI;
 import bkcraft.bedwars.world.FilePath;
 import bkcraft.bedwars.world.MapManager;
 import bkcraft.bedwars.world.MapUtils;
