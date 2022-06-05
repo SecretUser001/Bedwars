@@ -8,9 +8,9 @@ import bkcraft.bedwars.Main;
 
 public class JoinHandler implements Listener {
 
-	@EventHandler
-	public void onEnable(PlayerJoinEvent e) {
-		Main.plugin.game.addPlayer(e.getPlayer());
-	}
+    @EventHandler
+    public void onEnable(PlayerJoinEvent e) {
+	Main.plugin.game.addPlayer(e.getPlayer());
+    }
 
 }

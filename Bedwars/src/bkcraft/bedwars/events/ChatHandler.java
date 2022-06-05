@@ -11,16 +11,16 @@ import bkcraft.bedwars.game.TeamManager;
 
 public class ChatHandler implements Listener {
 
-	@EventHandler
-	public void onChat(AsyncPlayerChatEvent event) {
-		TeamManager teamManager = Main.plugin.game.teamManager;
-		if (teamManager.getPlayer().contains(event.getPlayer())) {
-			for (Player player : teamManager.getTeam(event.getPlayer())) {
-				player.sendMessage(teamManager.playerData.get(player).team.getPrefix() + event.getPlayer().getName()
-						+ " > " + ChatColor.WHITE + event.getMessage());
-			}
-			event.setCancelled(true);
-		}
+    @EventHandler
+    public void onChat(AsyncPlayerChatEvent event) {
+	TeamManager teamManager = Main.plugin.game.teamManager;
+	if (teamManager.getPlayer().contains(event.getPlayer())) {
+	    for (Player player : teamManager.getTeam(event.getPlayer())) {
+		player.sendMessage(teamManager.playerData.get(player).team.getPrefix() + event.getPlayer().getName()
+			+ " > " + ChatColor.WHITE + event.getMessage());
+	    }
+	    event.setCancelled(true);
 	}
+    }
 
 }

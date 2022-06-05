@@ -12,6 +12,8 @@ import bkcraft.bedwars.game.shop.Currency;
 
 public class Messages {
 
+    public static int CHARS_PER_LINE = 32;
+    
     public static String CANT_BUY_NO_CURRENCY(Currency money, Currency cost) {
 	HashMap<String, Integer> difference = money.differenceTo(cost);
 	ArrayList<String> needs = new ArrayList<String>();
@@ -27,19 +29,22 @@ public class Messages {
 	List<String> returnList = new ArrayList<String>();
 	ArrayList<String> words = new ArrayList<String>(Arrays.asList(string.split(" ")));
 	
+	String line = chatColor + words.get(0);
+	words.remove(0);
+	
 	while(words.size() != 0) {
-	    if(words.size() < 6) {
-		returnList.add(chatColor + String.join(" ", words));
-		for(int i = 0; i < words.size(); i++) {
-		    words.remove(0);
-		}
+	    if((line + " " + words.get(0)).length() < CHARS_PER_LINE) {
+		line += (" " + words.get(0));
+		words.remove(0);
 	    } else {
-		returnList.add(chatColor + String.join(string, words.subList(0, 3)));
-		for(int i = 0; i < 5; i++) {
-		    words.remove(0);
-		}
+		returnList.add(line);
+		line = chatColor + words.get(0);
+		words.remove(0);
 	    }
 	}
+	
+	returnList.add(line);
+	
 	return returnList;
     }
     

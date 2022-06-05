@@ -86,12 +86,14 @@ public class GUI {
 		    : (ChatColor.RED + bwItem.getName()));
 	    List<String> cost = Arrays.asList(ChatColor.GRAY + "Cost: " + ChatColor.WHITE + bwItem.getCost().toString());
 	    List<String> description = Messages.splitString(bwItem.getDescription(), ChatColor.GRAY);
-	    List<String> canBuy = Messages.splitString(Shop.canBuy(player, bwItem) ? ""
+	    List<String> canBuy = Messages.splitString(Shop.canBuy(player, bwItem) ? ChatColor.YELLOW + "Click to purchase!"
 		    : Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), bwItem.getCost()), ChatColor.RED);
 	    
 	    ArrayList<String> lore = new ArrayList<String>();
 	    lore.addAll(cost);
+	    lore.add("");
 	    lore.addAll(description);
+	    lore.add("");
 	    lore.addAll(canBuy);
 	    
 	    meta.setLore(lore);

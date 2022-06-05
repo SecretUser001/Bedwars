@@ -31,6 +31,8 @@ public class Game {
 
     public void addPlayer(Player player) {
 	if (!started) {
+	    player.setHealth(20d);
+	    player.setSaturation(20f);
 	    player.setVelocity(new Vector(0, 0, 0));
 	    player.teleport(new Location(bedwarsMap.world, 0.5, bedwarsMap.SPAWN_HEIGHT, 0.5));
 	    player.setGameMode(GameMode.ADVENTURE);

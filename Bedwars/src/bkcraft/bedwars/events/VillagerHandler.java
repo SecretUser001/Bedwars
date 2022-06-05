@@ -12,14 +12,14 @@ import bkcraft.bedwars.game.shop.GUI.GUI;
 
 public class VillagerHandler implements Listener {
 
-	@EventHandler
-	public void onVillagerClick(PlayerInteractEntityEvent event) {
-		Bukkit.broadcastMessage("event");
-		if (Main.plugin.game.teamManager.playerData.containsKey(event.getPlayer())
-				&& event.getRightClicked() instanceof Villager) {
-			GUI.open(event.getPlayer(), Category.Blocks);
-			event.setCancelled(true);
-		}
+    @EventHandler
+    public void onVillagerClick(PlayerInteractEntityEvent event) {
+	Bukkit.broadcastMessage("event");
+	if (Main.plugin.game.teamManager.playerData.containsKey(event.getPlayer())
+		&& event.getRightClicked() instanceof Villager) {
+	    GUI.open(event.getPlayer(), Category.Blocks);
+	    event.setCancelled(true);
 	}
+    }
 
 }
