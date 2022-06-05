@@ -11,35 +11,35 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-public class SpawnerRunnable extends BukkitRunnable{
+public class SpawnerRunnable extends BukkitRunnable {
 
 	public HashMap<Material, Double> delay;
 	public HashMap<Material, Long> lastSpawn;
 	Location location;
-	
+
 	boolean dropNaturally;
-	
+
 	public SpawnerRunnable(Location location, HashMap<Material, Double> delay, boolean dropNaturally) {
 		Bukkit.broadcastMessage("spawner init");
 		this.location = location.add(0.5, 0, 0.5);
 		this.delay = delay;
-		
+
 		this.dropNaturally = dropNaturally;
-		
+
 		this.lastSpawn = new HashMap<Material, Long>();
-		
-		for(Entry<Material, Double> entry : delay.entrySet()) {
+
+		for (Entry<Material, Double> entry : delay.entrySet()) {
 			this.lastSpawn.put(entry.getKey(), System.currentTimeMillis());
 		}
 		Bukkit.broadcastMessage(Boolean.toString(this.location == null));
 	}
-	
+
 	@Override
 	public void run() {
-		for(Entry<Material, Long> entry : this.lastSpawn.entrySet()) {
-			if(System.currentTimeMillis() - this.delay.get(entry.getKey()) > entry.getValue()) { 
+		for (Entry<Material, Long> entry : this.lastSpawn.entrySet()) {
+			if (System.currentTimeMillis() - this.delay.get(entry.getKey()) > entry.getValue()) {
 				this.lastSpawn.put(entry.getKey(), entry.getValue() + (long) (this.delay.get(entry.getKey()) * 1000));
-				if(this.dropNaturally) {
+				if (this.dropNaturally) {
 					this.location.getWorld().dropItemNaturally(this.location, new ItemStack(entry.getKey()));
 				} else {
 					Item item = this.location.getWorld().dropItem(this.location, new ItemStack(entry.getKey()));

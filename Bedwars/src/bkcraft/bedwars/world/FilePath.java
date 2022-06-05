@@ -8,7 +8,7 @@ public class FilePath {
 	public static String SCHEMATICS_FOLDER;
 	public static String MAPS_FOLDER;
 	public static String CAGE_SCHEM;
-	
+
 	public static void init() {
 		DATA_FOLDER = Main.plugin.getDataFolder().getAbsolutePath();
 		SCHEMATICS_FOLDER = DATA_FOLDER + "/schematics/";

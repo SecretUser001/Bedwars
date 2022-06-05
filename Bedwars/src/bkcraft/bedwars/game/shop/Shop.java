@@ -23,10 +23,10 @@ public class Shop {
 		int emeralds = bedwarsItem.getCost().Emerald;
 
 		for (ItemStack itemStack : player.getInventory().getContents()) {
-			if(itemStack == null) {
+			if (itemStack == null) {
 				continue;
 			}
-			
+
 			if (itemStack.getType() == Material.IRON_INGOT) {
 				if (itemStack.getAmount() < iron) {
 					itemStack.setAmount(0);
@@ -71,10 +71,10 @@ public class Shop {
 		int emeralds = 0;
 
 		for (ItemStack itemStack : player.getInventory().getContents()) {
-			if(itemStack == null) {
+			if (itemStack == null) {
 				continue;
 			}
-			
+
 			if (itemStack.getType() == Material.IRON_INGOT) {
 				iron += itemStack.getAmount();
 			} else if (itemStack.getType() == Material.GOLD_INGOT) {

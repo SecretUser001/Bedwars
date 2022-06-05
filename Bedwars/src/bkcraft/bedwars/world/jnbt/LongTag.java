@@ -1,6 +1,5 @@
 package bkcraft.bedwars.world.jnbt;
 
-
 //@formatter:off
 
 /*
@@ -39,41 +38,39 @@ package bkcraft.bedwars.world.jnbt;
 //@formatter:on
 
 /**
-* The <code>TAG_Long</code> tag.
-* 
-* @author Graham Edgecombe
-* 
-*/
+ * The <code>TAG_Long</code> tag.
+ * 
+ * @author Graham Edgecombe
+ * 
+ */
 public final class LongTag extends Tag {
-	
+
 	/**
 	 * The value.
 	 */
 	private final long value;
-	
+
 	/**
 	 * Creates the tag.
 	 * 
-	 * @param name
-	 *            The name.
-	 * @param value
-	 *            The value.
+	 * @param name  The name.
+	 * @param value The value.
 	 */
 	public LongTag(final String name, final long value) {
-	
+
 		super(name);
 		this.value = value;
 	}
-	
+
 	@Override
 	public Long getValue() {
-	
+
 		return value;
 	}
-	
+
 	@Override
 	public String toString() {
-	
+
 		final String name = getName();
 		String append = "";
 		if ((name != null) && !name.equals("")) {
@@ -81,32 +78,42 @@ public final class LongTag extends Tag {
 		}
 		return "TAG_Long" + append + ": " + value;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
-	
+
 		final int prime = 31;
 		int result = super.hashCode();
 		result = (prime * result) + (int) (value ^ (value >>> 32));
 		return result;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(final Object obj) {
-	
-		if (this == obj) { return true; }
-		if (!super.equals(obj)) { return false; }
-		if (!(obj instanceof LongTag)) { return false; }
+
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof LongTag)) {
+			return false;
+		}
 		final LongTag other = (LongTag) obj;
-		if (value != other.value) { return false; }
+		if (value != other.value) {
+			return false;
+		}
 		return true;
 	}
 }

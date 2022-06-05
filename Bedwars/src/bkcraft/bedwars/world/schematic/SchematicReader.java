@@ -12,14 +12,14 @@ import bkcraft.bedwars.world.jnbt.NBTInputStream;
 import bkcraft.bedwars.world.jnbt.Tag;
 
 public class SchematicReader {
-	
+
 	@SuppressWarnings("unchecked")
 	public static Region read(File file) throws FileNotFoundException, IOException {
 		NBTInputStream inputStream = new NBTInputStream(new FileInputStream(file));
-		
+
 		Tag rootTag = inputStream.readTag();
-		
-		if(!rootTag.getName().equals("Schematic")) {
+
+		if (!rootTag.getName().equals("Schematic")) {
 			throw new IOException("Tag 'Schematic' does not exist or is not first");
 		}
 
@@ -28,7 +28,7 @@ public class SchematicReader {
 		// Check
 //		Map<String, Tag> schematic = schematicTag.getValue();
 		Map<String, Tag> schematic = (Map<String, Tag>) rootTag.getValue();
-		
+
 		if (!schematic.containsKey("Blocks")) {
 			throw new IOException("Schematic file is missing a 'Blocks' tag");
 		}
@@ -49,7 +49,7 @@ public class SchematicReader {
 		short width = (short) requireTag(schematic, "Width").getValue();
 		short height = (short) requireTag(schematic, "Height").getValue();
 		short length = (short) requireTag(schematic, "Length").getValue();
-		
+
 		// ====================================================================
 		// Blocks
 		// ====================================================================
@@ -78,10 +78,10 @@ public class SchematicReader {
 				}
 			}
 		}
-		
+
 		region = new Region(width, height, length, blocks, blockData);
-		
+
 		return region;
 	}
-	
+
 }

@@ -9,10 +9,10 @@ import bkcraft.bedwars.game.shop.GUI.Category;
 public interface BedwarsItem {
 
 	public ItemStack getItem();
-	
+
 	public Category getCategory();
-	
+
 	public Currency getCost();
-	
+
 	public void clicked(Player player);
 }

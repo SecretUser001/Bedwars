@@ -9,7 +9,7 @@ import bkcraft.bedwars.game.shop.Currency;
 import bkcraft.bedwars.game.shop.Shop;
 import bkcraft.bedwars.game.shop.GUI.Category;
 
-public class StoneSwordBWI implements BedwarsItem{
+public class StoneSwordBWI implements BedwarsItem {
 
 	public static ItemStack item = new ItemStack(Material.STONE_SWORD, 1);
 	public static Category category = Category.Melee;
@@ -19,12 +19,12 @@ public class StoneSwordBWI implements BedwarsItem{
 	public ItemStack getItem() {
 		return item;
 	}
-	
+
 	@Override
 	public Category getCategory() {
 		return category;
 	}
-	
+
 	@Override
 	public Currency getCost() {
 		return cost;
@@ -32,7 +32,7 @@ public class StoneSwordBWI implements BedwarsItem{
 
 	@Override
 	public void clicked(Player player) {
-		if(Shop.buy(player, this)) {
+		if (Shop.buy(player, this)) {
 			player.getInventory().addItem(item);
 		} else {
 			player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));

@@ -7,13 +7,13 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 import bkcraft.bedwars.Main;
 
-public class FoodHandler implements Listener{
+public class FoodHandler implements Listener {
 
 	@EventHandler
 	public void onFood(FoodLevelChangeEvent event) {
-		if(event.getEntity() instanceof Player) {
+		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
-			if(Main.plugin.game.teamManager.playerData.keySet().contains(player)) {
+			if (Main.plugin.game.teamManager.playerData.keySet().contains(player)) {
 				event.setCancelled(true);
 			}
 		}

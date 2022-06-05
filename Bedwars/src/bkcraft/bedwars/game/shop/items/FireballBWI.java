@@ -17,7 +17,7 @@ import bkcraft.bedwars.game.shop.Currency;
 import bkcraft.bedwars.game.shop.Shop;
 import bkcraft.bedwars.game.shop.GUI.Category;
 
-public class FireballBWI implements BedwarsItem, Listener{
+public class FireballBWI implements BedwarsItem, Listener {
 
 	public static ItemStack item = new ItemStack(Material.FIREBALL, 1);
 	public static Category category = Category.Utils;
@@ -27,40 +27,40 @@ public class FireballBWI implements BedwarsItem, Listener{
 	public ItemStack getItem() {
 		return item;
 	}
-	
+
 	@Override
 	public Category getCategory() {
 		return category;
 	}
-	
+
 	@Override
 	public Currency getCost() {
 		return cost;
 	}
-	
+
 	@Override
 	public void clicked(Player player) {
-		if(Shop.buy(player, this)) {
+		if (Shop.buy(player, this)) {
 			player.getInventory().addItem(item);
 		} else {
 			player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 		}
 	}
-	
+
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
-		if(event.getItem().getType() == Material.FIREBALL) {
+		if (event.getItem().getType() == Material.FIREBALL) {
 			Fireball fireball = event.getPlayer().launchProjectile(Fireball.class);
 			fireball.setIsIncendiary(false);
 			event.getPlayer().launchProjectile(Arrow.class);
 		}
 	}
-	
+
 	@EventHandler
 	public void onExplode(EntityExplodeEvent event) {
-		if(event.getEntity() instanceof Fireball) {
-			for(Block block : event.blockList()) {
-				if(Main.plugin.game.bedwarsMap.isMap(block.getLocation())) {
+		if (event.getEntity() instanceof Fireball) {
+			for (Block block : event.blockList()) {
+				if (Main.plugin.game.bedwarsMap.isMap(block.getLocation())) {
 					event.blockList().remove(block);
 				}
 			}

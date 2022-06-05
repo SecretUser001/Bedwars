@@ -1,6 +1,5 @@
 package bkcraft.bedwars.world.jnbt;
 
-
 import java.util.Arrays;
 
 //@formatter:off
@@ -47,35 +46,33 @@ import java.util.Arrays;
  * 
  */
 public final class IntArrayTag extends Tag {
-	
+
 	/**
 	 * The value.
 	 */
 	private final int[] value;
-	
+
 	/**
 	 * Creates the tag.
 	 * 
-	 * @param name
-	 *            The name.
-	 * @param value
-	 *            The value.
+	 * @param name  The name.
+	 * @param value The value.
 	 */
 	public IntArrayTag(final String name, final int[] value) {
-	
+
 		super(name);
 		this.value = value;
 	}
-	
+
 	@Override
 	public int[] getValue() {
-	
+
 		return value;
 	}
-	
+
 	@Override
 	public String toString() {
-	
+
 		final StringBuilder integers = new StringBuilder();
 		for (final int b : value) {
 			integers.append(b).append(" ");
@@ -87,33 +84,43 @@ public final class IntArrayTag extends Tag {
 		}
 		return "TAG_Int_Array" + append + ": " + integers.toString();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
-	
+
 		final int prime = 31;
 		int result = super.hashCode();
 		result = (prime * result) + Arrays.hashCode(value);
 		return result;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(final Object obj) {
-	
-		if (this == obj) { return true; }
-		if (!super.equals(obj)) { return false; }
-		if (!(obj instanceof IntArrayTag)) { return false; }
+
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof IntArrayTag)) {
+			return false;
+		}
 		final IntArrayTag other = (IntArrayTag) obj;
-		if (!Arrays.equals(value, other.value)) { return false; }
+		if (!Arrays.equals(value, other.value)) {
+			return false;
+		}
 		return true;
 	}
-	
+
 }

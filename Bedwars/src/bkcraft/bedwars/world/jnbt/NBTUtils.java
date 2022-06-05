@@ -1,6 +1,5 @@
 package bkcraft.bedwars.world.jnbt;
 
-
 //@formatter:off
 
 /*
@@ -39,22 +38,21 @@ package bkcraft.bedwars.world.jnbt;
 //@formatter:on
 
 /**
-* A class which contains NBT-related utility methods.
-* 
-* @author Graham Edgecombe
-* 
-*/
+ * A class which contains NBT-related utility methods.
+ * 
+ * @author Graham Edgecombe
+ * 
+ */
 public final class NBTUtils {
-	
+
 	/**
 	 * Gets the type name of a tag.
 	 * 
-	 * @param clazz
-	 *            The tag class.
+	 * @param clazz The tag class.
 	 * @return The type name.
 	 */
 	public static String getTypeName(final Class<? extends Tag> clazz) {
-	
+
 		if (clazz.equals(ByteArrayTag.class)) {
 			return "TAG_Byte_Array";
 		} else if (clazz.equals(ByteTag.class)) {
@@ -82,22 +80,19 @@ public final class NBTUtils {
 //		} else if (clazz.equals(LongArrayTag.class)) {
 //			return "TAG_Long_Array";
 		} else {
-			throw new IllegalArgumentException("[JNBT] Invalid tag classs ("
-					+ clazz.getName() + ").");
+			throw new IllegalArgumentException("[JNBT] Invalid tag classs (" + clazz.getName() + ").");
 		}
 	}
-	
+
 	/**
 	 * Gets the type code of a tag class.
 	 * 
-	 * @param clazz
-	 *            The tag class.
+	 * @param clazz The tag class.
 	 * @return The type code.
-	 * @throws IllegalArgumentException
-	 *             if the tag class is invalid.
+	 * @throws IllegalArgumentException if the tag class is invalid.
 	 */
 	public static int getTypeCode(final Class<? extends Tag> clazz) {
-	
+
 		if (clazz.equals(ByteArrayTag.class)) {
 			return NBTConstants.TYPE_BYTE_ARRAY;
 		} else if (clazz.equals(ByteTag.class)) {
@@ -125,60 +120,55 @@ public final class NBTUtils {
 //		} else if (clazz.equals(LongArrayTag.class)) {
 //			return NBTConstants.TYPE_LONG_ARRAY;
 		} else {
-			throw new IllegalArgumentException("[JNBT] Invalid tag classs ("
-					+ clazz.getName() + ").");
+			throw new IllegalArgumentException("[JNBT] Invalid tag classs (" + clazz.getName() + ").");
 		}
 	}
-	
+
 	/**
 	 * Gets the class of a type of tag.
 	 * 
-	 * @param type
-	 *            The type.
+	 * @param type The type.
 	 * @return The class.
-	 * @throws IllegalArgumentException
-	 *             if the tag type is invalid.
+	 * @throws IllegalArgumentException if the tag type is invalid.
 	 */
 	public static Class<? extends Tag> getTypeClass(final int type) {
-	
-		switch (type)
-			{
-				case NBTConstants.TYPE_END :
-					return EndTag.class;
-				case NBTConstants.TYPE_BYTE :
-					return ByteTag.class;
-				case NBTConstants.TYPE_SHORT :
-					return ShortTag.class;
-				case NBTConstants.TYPE_INT :
-					return IntTag.class;
-				case NBTConstants.TYPE_LONG :
-					return LongTag.class;
-				case NBTConstants.TYPE_FLOAT :
-					return FloatTag.class;
-				case NBTConstants.TYPE_DOUBLE :
-					return DoubleTag.class;
-				case NBTConstants.TYPE_BYTE_ARRAY :
-					return ByteArrayTag.class;
-				case NBTConstants.TYPE_STRING :
-					return StringTag.class;
-				case NBTConstants.TYPE_LIST :
-					return ListTag.class;
-				case NBTConstants.TYPE_COMPOUND :
-					return CompoundTag.class;
-				case NBTConstants.TYPE_INT_ARRAY :
-					return IntArrayTag.class;
+
+		switch (type) {
+		case NBTConstants.TYPE_END:
+			return EndTag.class;
+		case NBTConstants.TYPE_BYTE:
+			return ByteTag.class;
+		case NBTConstants.TYPE_SHORT:
+			return ShortTag.class;
+		case NBTConstants.TYPE_INT:
+			return IntTag.class;
+		case NBTConstants.TYPE_LONG:
+			return LongTag.class;
+		case NBTConstants.TYPE_FLOAT:
+			return FloatTag.class;
+		case NBTConstants.TYPE_DOUBLE:
+			return DoubleTag.class;
+		case NBTConstants.TYPE_BYTE_ARRAY:
+			return ByteArrayTag.class;
+		case NBTConstants.TYPE_STRING:
+			return StringTag.class;
+		case NBTConstants.TYPE_LIST:
+			return ListTag.class;
+		case NBTConstants.TYPE_COMPOUND:
+			return CompoundTag.class;
+		case NBTConstants.TYPE_INT_ARRAY:
+			return IntArrayTag.class;
 //				case NBTConstants.TYPE_LONG_ARRAY:
 //					return LongArrayTag.class;
-				default :
-					throw new IllegalArgumentException(
-							"[JNBT] Invalid tag type : " + type + ".");
-			}
+		default:
+			throw new IllegalArgumentException("[JNBT] Invalid tag type : " + type + ".");
+		}
 	}
-	
+
 	/**
 	 * Default private constructor.
 	 */
 	private NBTUtils() {
-	
+
 	}
 }

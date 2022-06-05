@@ -1,6 +1,5 @@
 package bkcraft.bedwars.world.jnbt;
 
-
 //@formatter:off
 
 /*
@@ -39,41 +38,39 @@ package bkcraft.bedwars.world.jnbt;
 //@formatter:on
 
 /**
-* The <code>TAG_String</code> tag.
-* 
-* @author Graham Edgecombe
-* 
-*/
+ * The <code>TAG_String</code> tag.
+ * 
+ * @author Graham Edgecombe
+ * 
+ */
 public final class StringTag extends Tag {
-	
+
 	/**
 	 * The value.
 	 */
 	private final String value;
-	
+
 	/**
 	 * Creates the tag.
 	 * 
-	 * @param name
-	 *            The name.
-	 * @param value
-	 *            The value.
+	 * @param name  The name.
+	 * @param value The value.
 	 */
 	public StringTag(final String name, final String value) {
-	
+
 		super(name);
 		this.value = value;
 	}
-	
+
 	@Override
 	public String getValue() {
-	
+
 		return value;
 	}
-	
+
 	@Override
 	public String toString() {
-	
+
 		final String name = getName();
 		String append = "";
 		if ((name != null) && !name.equals("")) {
@@ -81,35 +78,47 @@ public final class StringTag extends Tag {
 		}
 		return "TAG_String" + append + ": " + value;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
-	
+
 		final int prime = 31;
 		int result = super.hashCode();
 		result = (prime * result) + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(final Object obj) {
-	
-		if (this == obj) { return true; }
-		if (!super.equals(obj)) { return false; }
-		if (!(obj instanceof StringTag)) { return false; }
+
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof StringTag)) {
+			return false;
+		}
 		final StringTag other = (StringTag) obj;
 		if (value == null) {
-			if (other.value != null) { return false; }
-		} else if (!value.equals(other.value)) { return false; }
+			if (other.value != null) {
+				return false;
+			}
+		} else if (!value.equals(other.value)) {
+			return false;
+		}
 		return true;
 	}
-	
+
 }

@@ -6,11 +6,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import bkcraft.bedwars.Main;
 
-public class JoinHandler implements Listener{
+public class JoinHandler implements Listener {
 
 	@EventHandler
 	public void onEnable(PlayerJoinEvent e) {
 		Main.plugin.game.addPlayer(e.getPlayer());
 	}
-	
+
 }
