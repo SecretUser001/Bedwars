@@ -27,12 +27,12 @@ public class GoldenAppleBWI implements BedwarsItem {
     public String getName() {
 	return displayName;
     }
-    
+
     @Override
     public Category getCategory() {
 	return category;
     }
-    
+
     @Override
     public String getDescription() {
 	return description;

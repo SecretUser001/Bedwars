@@ -53,12 +53,8 @@ public class Game {
 	this.teamManager.createTeams();
 	this.teamManager.createBeds();
 
-	for (Team team : this.teamManager.TEAM_ORDER.subList(0, this.teamManager.teamCount - 1)) {
-	    for (Player player : this.teamManager.getTeam(team)) {
-		player.setGameMode(GameMode.SURVIVAL);
-		player.setVelocity(new Vector(0, 0, 0));
-		player.teleport(this.bedwarsMap.spawns.get(team));
-	    }
+	for (Player player : this.teamManager.playerData.keySet()) {
+	    respawn(player);
 	}
     }
 
@@ -93,10 +89,17 @@ public class Game {
     }
 
     public void respawn(Player player) {
+	PlayerData data = this.teamManager.playerData.get(player);
+
 	player.setGameMode(GameMode.SURVIVAL);
 	player.setVelocity(new Vector(0, 0, 0));
 	player.teleport(this.bedwarsMap.spawns.get(this.teamManager.playerData.get(player).getTeam()));
-	for(PermanentBedwarsItem item : this.teamManager.playerData.get(player).permanentItems) {
+
+	player.getInventory().clear();
+	
+	data.armor.giveArmor(player);
+
+	for (PermanentBedwarsItem item : this.teamManager.playerData.get(player).permanentItems) {
 	    item.respawn(player);
 	}
     }

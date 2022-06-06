@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryType.SlotType;
 
 import bkcraft.bedwars.game.shop.GUI.Category;
 import bkcraft.bedwars.game.shop.GUI.GUI;
@@ -30,6 +31,8 @@ public class InventoryHandler implements Listener {
 		    GUI.slotNumbers.get(GUI.openCategory.get(player)).get(event.getSlot()).clicked(player);
 		}
 	    }
+	} else if (event.getSlotType() == SlotType.ARMOR) {
+	    event.setCancelled(true);
 	}
     }
 }

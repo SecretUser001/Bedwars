@@ -8,15 +8,15 @@ import bkcraft.bedwars.game.shop.GUI.Category;
 
 public interface BedwarsItem {
 
-	public ItemStack getItem();
+    public ItemStack getItem();
 
-	public String getName();
-	
-	public Category getCategory();
+    public String getName();
 
-	public Currency getCost();
+    public Category getCategory();
 
-	public String getDescription();
-	
-	public void clicked(Player player);
+    public Currency getCost();
+
+    public String getDescription();
+
+    public void clicked(Player player);
 }

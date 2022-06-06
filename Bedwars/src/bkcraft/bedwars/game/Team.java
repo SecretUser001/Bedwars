@@ -31,7 +31,7 @@ public enum Team {
 	return this.prefix;
     }
     
-    public DyeColor getColor() {
+    public DyeColor getDyeColor() {
 	return this.color;
     }
 }

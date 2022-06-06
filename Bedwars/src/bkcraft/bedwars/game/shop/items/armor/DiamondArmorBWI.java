@@ -19,7 +19,7 @@ public class DiamondArmorBWI implements PermanentBedwarsItem {
     public static Category category = Category.Armor;
     public static String description = "";
     public static Currency cost = new Currency(0, 0, 0, 6);
-
+   
     public DiamondArmorBWI() {
 	ItemMeta meta = item.getItemMeta();
 	meta.setDisplayName(displayName);
@@ -59,13 +59,15 @@ public class DiamondArmorBWI implements PermanentBedwarsItem {
 
     @Override
     public void clicked(Player player) {
-	if(Main.plugin.game.teamManager.playerData.get(player).permanentItems.contains(this)) {
+	Armor armor = new DiamondArmor(Main.plugin.game.teamManager.playerData.get(player).getTeam());
+	if(Main.plugin.game.teamManager.playerData.get(player).armor.getUpgrade() >= armor.getUpgrade()) {
 	    player.sendMessage(Messages.CANT_BUY_ALREADY_PURCHASED);
 	    return;
 	}
 	
 	if (Shop.buy(player, this)) {
-	    Main.plugin.game.teamManager.playerData.get(player).permanentItems.add(this);
+	    Main.plugin.game.teamManager.playerData.get(player).armor = armor;
+	    armor.giveArmor(player);
 	} else {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}

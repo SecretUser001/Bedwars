@@ -30,12 +30,12 @@ public class FireballBWI implements BedwarsItem, Listener {
     public String getName() {
 	return displayName;
     }
-    
+
     @Override
     public Category getCategory() {
 	return category;
     }
-    
+
     @Override
     public String getDescription() {
 	return description;
@@ -56,9 +56,9 @@ public class FireballBWI implements BedwarsItem, Listener {
     }
 
     @EventHandler
-    public void onInteract(PlayerInteractEvent event) {	
+    public void onInteract(PlayerInteractEvent event) {
 	if (event.hasItem() && event.getItem().getType() == Material.FIREBALL) {
-	   event.setCancelled(true);
+	    event.setCancelled(true);
 	}
     }
 }

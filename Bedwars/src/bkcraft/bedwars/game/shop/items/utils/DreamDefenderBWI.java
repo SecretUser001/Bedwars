@@ -7,8 +7,8 @@ import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import bkcraft.bedwars.game.Messages;
 import bkcraft.bedwars.game.shop.Currency;
@@ -16,19 +16,13 @@ import bkcraft.bedwars.game.shop.Shop;
 import bkcraft.bedwars.game.shop.GUI.Category;
 import bkcraft.bedwars.game.shop.items.BedwarsItem;
 
-public class BedbugBWI implements BedwarsItem, Listener {
+public class DreamDefenderBWI implements BedwarsItem, Listener {
 
-    public static ItemStack item = new ItemStack(Material.SNOW_BALL, 1);
-    public static String displayName = "Bedbug";
+    public static ItemStack item = new ItemStack(Material.MONSTER_EGG, 1);
+    public static String displayName = "Dream Defender";
     public static Category category = Category.Utils;
-    public static String description = "Spawns silverfish where the snowball lands to distract your enemies";
-    public static Currency cost = new Currency(30, 0, 0, 0);
-
-    public BedbugBWI() {
-	ItemMeta meta = item.getItemMeta();
-	meta.setDisplayName(displayName);
-	item.setItemMeta(meta);
-    }
+    public static String description = "Iron Golem to help defend your base";
+    public static Currency cost = new Currency(120, 0, 0, 0);
 
     @Override
     public ItemStack getItem() {
@@ -65,9 +59,10 @@ public class BedbugBWI implements BedwarsItem, Listener {
     }
 
     @EventHandler
-    public void onProjectileHit(ProjectileHitEvent event) {
-	if (event.getEntity() instanceof Snowball) {
-	    event.getEntity().getWorld().spawn(event.getEntity().getLocation(), Silverfish.class);
+    public void onInteract(PlayerInteractEvent event) {
+	if (event.hasItem() && event.getItem().getType() == Material.MONSTER_EGG) {
+	    event.setCancelled(true);
 	}
     }
+
 }

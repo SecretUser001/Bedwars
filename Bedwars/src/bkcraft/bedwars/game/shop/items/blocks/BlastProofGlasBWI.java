@@ -61,7 +61,7 @@ public class BlastProofGlasBWI implements BedwarsItem, Listener {
 	if (Shop.buy(player, this)) {
 	    ItemStack coloredGlass = new ItemStack(item);
 	    coloredGlass
-		    .setDurability(Main.plugin.game.teamManager.playerData.get(player).getTeam().getColor().getData());
+		    .setDurability(Main.plugin.game.teamManager.playerData.get(player).getTeam().getDyeColor().getData());
 	    player.getInventory().addItem(coloredGlass);
 	} else {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
