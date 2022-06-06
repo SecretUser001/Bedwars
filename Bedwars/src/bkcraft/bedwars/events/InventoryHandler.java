@@ -1,6 +1,7 @@
 package bkcraft.bedwars.events;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,6 +25,7 @@ public class InventoryHandler implements Listener {
 	    Player player = (Player) event.getWhoClicked();
 	    event.setCancelled(true);
 	    if (!(event.getInventory().getItem(event.getRawSlot()).getType() == Material.AIR)) {
+		event.getWhoClicked().getWorld().playSound(event.getWhoClicked().getLocation(), Sound.ORB_PICKUP, .5f, 1f);
 		if (event.getSlot() < 9) {
 		    GUI.open(player, Category
 			    .valueOf(event.getInventory().getItem(event.getSlot()).getItemMeta().getDisplayName()));
