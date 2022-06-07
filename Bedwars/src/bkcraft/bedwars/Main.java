@@ -16,7 +16,13 @@ import bkcraft.bedwars.events.InventoryHandler;
 import bkcraft.bedwars.events.JoinHandler;
 import bkcraft.bedwars.events.VillagerHandler;
 import bkcraft.bedwars.game.Game;
+import bkcraft.bedwars.game.shop.items.utils.BridgeeggBWI;
+import bkcraft.bedwars.game.shop.items.utils.DreamDefenderBWI;
 import bkcraft.bedwars.game.shop.items.utils.FireballBWI;
+import bkcraft.bedwars.game.shop.items.utils.MagicMilkBWI;
+import bkcraft.bedwars.game.shop.items.utils.SpongeBWI;
+import bkcraft.bedwars.game.shop.items.utils.TNTBWI;
+import bkcraft.bedwars.game.shop.items.utils.WaterbucketBWI;
 import bkcraft.bedwars.world.FilePath;
 import bkcraft.bedwars.world.MapManager;
 import bkcraft.bedwars.world.MapUtils;
@@ -38,12 +44,20 @@ public class Main extends JavaPlugin {
 	this.getServer().getPluginManager().registerEvents(new JoinHandler(), this);
 	this.getServer().getPluginManager().registerEvents(new ChatHandler(), this);
 	this.getServer().getPluginManager().registerEvents(new BlockHandler(), this);
-	this.getServer().getPluginManager().registerEvents(new DeathHandler(), this);
 	this.getServer().getPluginManager().registerEvents(new FoodHandler(), this);
 	this.getServer().getPluginManager().registerEvents(new VillagerHandler(), this);
 	this.getServer().getPluginManager().registerEvents(new InventoryHandler(), this);
-	this.getServer().getPluginManager().registerEvents(new FireballBWI(), this);
 
+	this.getServer().getPluginManager().registerEvents(new DreamDefenderBWI(), this);
+	this.getServer().getPluginManager().registerEvents(new FireballBWI(), this);
+	this.getServer().getPluginManager().registerEvents(new TNTBWI(), this);
+	this.getServer().getPluginManager().registerEvents(new WaterbucketBWI(), this);
+	this.getServer().getPluginManager().registerEvents(new BridgeeggBWI(), this);
+	this.getServer().getPluginManager().registerEvents(new MagicMilkBWI(), this);
+	this.getServer().getPluginManager().registerEvents(new SpongeBWI(), this);
+
+	this.getServer().getPluginManager().registerEvents(new DeathHandler(), this);
+	
 	this.getCommand("game").setExecutor(new GameCmd());
 
 	FilePath.init();

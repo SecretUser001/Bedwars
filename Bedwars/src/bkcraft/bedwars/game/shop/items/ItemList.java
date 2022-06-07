@@ -30,9 +30,15 @@ import bkcraft.bedwars.game.shop.items.tools.AxeBWI;
 import bkcraft.bedwars.game.shop.items.tools.PickaxeBWI;
 import bkcraft.bedwars.game.shop.items.tools.ShearsBWI;
 import bkcraft.bedwars.game.shop.items.utils.BedbugBWI;
+import bkcraft.bedwars.game.shop.items.utils.BridgeeggBWI;
 import bkcraft.bedwars.game.shop.items.utils.DreamDefenderBWI;
+import bkcraft.bedwars.game.shop.items.utils.EnderpearlBWI;
 import bkcraft.bedwars.game.shop.items.utils.FireballBWI;
 import bkcraft.bedwars.game.shop.items.utils.GoldenAppleBWI;
+import bkcraft.bedwars.game.shop.items.utils.MagicMilkBWI;
+import bkcraft.bedwars.game.shop.items.utils.SpongeBWI;
+import bkcraft.bedwars.game.shop.items.utils.TNTBWI;
+import bkcraft.bedwars.game.shop.items.utils.WaterbucketBWI;
 
 public class ItemList {
 
@@ -41,7 +47,9 @@ public class ItemList {
 	    new LadderBWI(), new OakWoodPlanksBWI(), new ObsidianBWI(), new StoneSwordBWI(), new IronSwordBWI(),
 	    new DiamondSwordBWI(), new KnockbackStickBWI(), new SpeedPotionBWI(), new JumpPotionBWI(),
 	    new InvisibilityPotionBWI(), new ArrowsBWI(), new BowBWI(), new BowPowerBWI(), new BowPunchBWI(),
-	    new ShearsBWI(), new GoldenAppleBWI(), new BedbugBWI(), new DreamDefenderBWI(), new FireballBWI()));
+	    new ShearsBWI(), new GoldenAppleBWI(), new BedbugBWI(), new DreamDefenderBWI(), new FireballBWI(),
+	    new TNTBWI(), new EnderpearlBWI(), new WaterbucketBWI(), new BridgeeggBWI(), new MagicMilkBWI(),
+	    new SpongeBWI()));
 
     public static List<UpgradebleBedwarsItem> upgradebleItems = new ArrayList<UpgradebleBedwarsItem>(
 	    Arrays.asList(new AxeBWI(), new PickaxeBWI()));
@@ -69,5 +77,5 @@ public class ItemList {
 
 	return returnList;
     }
-    
+
 }
