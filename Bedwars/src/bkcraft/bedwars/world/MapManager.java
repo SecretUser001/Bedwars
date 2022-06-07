@@ -2,6 +2,7 @@ package bkcraft.bedwars.world;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 
@@ -31,6 +32,12 @@ public class MapManager {
 		BedwarsMap map = new BedwarsMap(worldName);
 
 		ArrayList<String> mapTemplates = getTemplateFiles();
+		
+		if(mapTemplates.size() == 0) {
+		    Main.plugin.getLogger().log(Level.WARNING, "Cant find map templates");
+		    return map;
+		}
+		
 		File template = new File(mapTemplates.get(Main.random.nextInt(mapTemplates.size())));
 
 		map.addTemplate(template);

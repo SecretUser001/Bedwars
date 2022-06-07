@@ -36,13 +36,15 @@ import bkcraft.bedwars.game.shop.items.utils.GoldenAppleBWI;
 
 public class ItemList {
 
-    public static List<BedwarsItem> items = new ArrayList<>(
-	    Arrays.asList(new ChainArmorBWI(), new IronArmorBWI(), new DiamondArmorBWI(), new WoolBWI(), new ClayBWI(),
-		    new BlastProofGlasBWI(), new EndstoneBWI(), new LadderBWI(), new OakWoodPlanksBWI(),
-		    new ObsidianBWI(), new StoneSwordBWI(), new IronSwordBWI(), new DiamondSwordBWI(),
-		    new KnockbackStickBWI(), new SpeedPotionBWI(), new JumpPotionBWI(), new InvisibilityPotionBWI(),
-		    new ArrowsBWI(), new BowBWI(), new BowPowerBWI(), new BowPunchBWI(), new AxeBWI(), new PickaxeBWI(),
-		    new ShearsBWI(), new GoldenAppleBWI(), new BedbugBWI(), new DreamDefenderBWI(), new FireballBWI()));
+    public static List<BedwarsItem> items = new ArrayList<>(Arrays.asList(new ChainArmorBWI(), new IronArmorBWI(),
+	    new DiamondArmorBWI(), new WoolBWI(), new ClayBWI(), new BlastProofGlasBWI(), new EndstoneBWI(),
+	    new LadderBWI(), new OakWoodPlanksBWI(), new ObsidianBWI(), new StoneSwordBWI(), new IronSwordBWI(),
+	    new DiamondSwordBWI(), new KnockbackStickBWI(), new SpeedPotionBWI(), new JumpPotionBWI(),
+	    new InvisibilityPotionBWI(), new ArrowsBWI(), new BowBWI(), new BowPowerBWI(), new BowPunchBWI(),
+	    new ShearsBWI(), new GoldenAppleBWI(), new BedbugBWI(), new DreamDefenderBWI(), new FireballBWI()));
+
+    public static List<UpgradebleBedwarsItem> upgradebleItems = new ArrayList<UpgradebleBedwarsItem>(
+	    Arrays.asList(new AxeBWI(), new PickaxeBWI()));
 
     public static List<BedwarsItem> getItems(Category category) {
 	List<BedwarsItem> returnList = new ArrayList<BedwarsItem>();
@@ -56,4 +58,16 @@ public class ItemList {
 	return returnList;
     }
 
+    public static List<UpgradebleBedwarsItem> getUpgradebleItems(Category category) {
+	List<UpgradebleBedwarsItem> returnList = new ArrayList<UpgradebleBedwarsItem>();
+
+	for (UpgradebleBedwarsItem item : upgradebleItems) {
+	    if (item.getCategory() == category) {
+		returnList.add(item);
+	    }
+	}
+
+	return returnList;
+    }
+    
 }

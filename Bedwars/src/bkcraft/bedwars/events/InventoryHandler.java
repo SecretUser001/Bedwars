@@ -31,6 +31,7 @@ public class InventoryHandler implements Listener {
 			    .valueOf(event.getInventory().getItem(event.getSlot()).getItemMeta().getDisplayName()));
 		} else if (GUI.itemSlots.contains(event.getSlot())) {
 		    GUI.slotNumbers.get(GUI.openCategory.get(player)).get(event.getSlot()).clicked(player);
+		    GUI.refresh(player);
 		}
 	    }
 	} else if (event.getSlotType() == SlotType.ARMOR) {

@@ -14,10 +14,12 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import bkcraft.bedwars.Main;
 import bkcraft.bedwars.game.Messages;
 import bkcraft.bedwars.game.shop.Shop;
 import bkcraft.bedwars.game.shop.items.BedwarsItem;
 import bkcraft.bedwars.game.shop.items.ItemList;
+import bkcraft.bedwars.game.shop.items.UpgradebleBedwarsItem;
 
 public class GUI {
 
@@ -65,7 +67,20 @@ public class GUI {
 
     public static void fillItems(Inventory inventory, Category category, Player player) {
 	List<BedwarsItem> items = ItemList.getItems(category);
-
+	List<UpgradebleBedwarsItem> listedUpgradebleItems = ItemList.getUpgradebleItems(category);
+	
+	List<UpgradebleBedwarsItem> upgradebleItems = new ArrayList<UpgradebleBedwarsItem>();
+	
+	for(UpgradebleBedwarsItem item : listedUpgradebleItems) {
+	    if(Main.plugin.game.teamManager.playerData.get(player).upgradebleItems.containsKey(item.getItemName())) {
+		upgradebleItems.add(Main.plugin.game.teamManager.playerData.get(player).upgradebleItems.get(item.getItemName()));
+	    } else {
+		upgradebleItems.add(item);
+	    }
+	}
+	
+	items.addAll(upgradebleItems);
+	
 	if (!slotNumbers.containsKey(category)) {
 	    slotNumbers.put(category, new HashMap<Integer, BedwarsItem>());
 	}
@@ -103,5 +118,9 @@ public class GUI {
 	    inventory.setItem(slot, item);
 	    items.remove(0);
 	}
+    }
+    
+    public static void refresh(Player player) {
+	open(player, openCategory.get(player));
     }
 }

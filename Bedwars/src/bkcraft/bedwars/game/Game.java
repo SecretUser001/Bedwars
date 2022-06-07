@@ -9,6 +9,7 @@ import org.bukkit.util.Vector;
 
 import bkcraft.bedwars.Main;
 import bkcraft.bedwars.game.shop.items.PermanentBedwarsItem;
+import bkcraft.bedwars.game.shop.items.UpgradebleBedwarsItem;
 import bkcraft.bedwars.game.title.LegacyTitle;
 import bkcraft.bedwars.world.BedwarsMap;
 
@@ -31,6 +32,8 @@ public class Game {
 
     public void addPlayer(Player player) {
 	if (!started) {
+	    player.getInventory().clear();
+	    
 	    player.setHealth(20d);
 	    player.setSaturation(20f);
 	    player.setVelocity(new Vector(0, 0, 0));
@@ -100,6 +103,10 @@ public class Game {
 	data.armor.giveArmor(player);
 
 	for (PermanentBedwarsItem item : this.teamManager.playerData.get(player).permanentItems) {
+	    item.respawn(player);
+	}
+	
+	for (UpgradebleBedwarsItem item : this.teamManager.playerData.get(player).upgradebleItems.values()) {
 	    item.respawn(player);
 	}
     }

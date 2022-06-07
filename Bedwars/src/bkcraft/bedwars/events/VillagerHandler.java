@@ -1,6 +1,5 @@
 package bkcraft.bedwars.events;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +13,6 @@ public class VillagerHandler implements Listener {
 
     @EventHandler
     public void onVillagerClick(PlayerInteractEntityEvent event) {
-	Bukkit.broadcastMessage("event");
 	if (Main.plugin.game.teamManager.playerData.containsKey(event.getPlayer())
 		&& event.getRightClicked() instanceof Villager) {
 	    GUI.open(event.getPlayer(), Category.Blocks);

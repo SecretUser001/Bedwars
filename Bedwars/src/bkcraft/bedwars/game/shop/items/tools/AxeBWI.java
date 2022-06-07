@@ -2,103 +2,87 @@ package bkcraft.bedwars.game.shop.items.tools;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import bkcraft.bedwars.Main;
-import bkcraft.bedwars.game.Messages;
 import bkcraft.bedwars.game.shop.Currency;
-import bkcraft.bedwars.game.shop.Shop;
 import bkcraft.bedwars.game.shop.GUI.Category;
+import bkcraft.bedwars.game.shop.items.BedwarsItem;
+import bkcraft.bedwars.game.shop.items.PermanentBedwarsItem;
 import bkcraft.bedwars.game.shop.items.UpgradebleBedwarsItem;
 
 public class AxeBWI implements UpgradebleBedwarsItem {
 
-    public static ArrayList<ItemStack> item = new ArrayList<ItemStack>(
-	    Arrays.asList(new ItemStack(Material.WOOD_AXE), new ItemStack(Material.STONE_AXE),
-		    new ItemStack(Material.IRON_AXE), new ItemStack(Material.DIAMOND_AXE)));
-    public static ArrayList<String> name = new ArrayList<String>(Arrays.asList("Wooden Axe", "Stone Axe", "Iron Axe", "Diamond Axe"));
-    public static ArrayList<Integer> efficiencyLvl = new ArrayList<>(Arrays.asList(1, 1, 2, 1));
-    public static Category category = Category.Tools;
-    public static String description = "Permanent Axe";
-    public static ArrayList<Currency> cost = new ArrayList<Currency>(Arrays.asList(new Currency(10, 0, 0, 0),
-	    new Currency(10, 0, 0, 0), new Currency(0, 3, 0, 0), new Currency(0, 6, 0, 0)));
-    public int upgrades = 0;
-
-    public AxeBWI() {
-	for (int i = 0; i < item.size(); i++) {
-	    ItemMeta meta = item.get(i).getItemMeta();
-	    meta.addEnchant(Enchantment.DIG_SPEED, efficiencyLvl.get(i), false);
-	    item.get(i).setItemMeta(meta);
+    public static String name = "Axe";
+    public List<PermanentBedwarsItem> upgrades = new ArrayList<PermanentBedwarsItem>(Arrays
+	    .asList(new WoodenAxeBWI(this), new StoneAxeBWI(this), new IronAxeBWI(this), new DiamondAxeBWI(this)));
+    public int upgrade = 0;
+    public boolean bought;
+    
+    @Override
+    public String getItemName() {
+	return name;
+    }
+    
+    @Override
+    public BedwarsItem getBedwarsItem(int upgrade) {
+	return upgrades.get(upgrade);
+    }
+    
+    int getNextUpgrade() {
+	if(!bought) {
+	    return 0;
 	}
+	
+	if(this.upgrade < (this.upgrades.size() - 1)) {
+	    return this.upgrade + 1;
+	}
+	return this.upgrade;
     }
 
     @Override
     public ItemStack getItem() {
-	return item.get(upgrades + 1);
+	return upgrades.get(upgrade).getItem();
     }
 
     @Override
-    public String getName() {
-	return name.get(upgrades + 1);
-    }
-    
-    @Override
-    public Category getCategory() {
-	return category;
-    }
-
-    @Override
-    public String getDescription() {
-	return description;
-    }
-
-    @Override
-    public Currency getCost() {
-	if (upgrades + 1 < cost.size()) {
-	    return cost.get(upgrades + 1);
+    public boolean upgrade(int upgrade) {
+	if (upgrade <= this.upgrade) {
+	    return false;
 	}
-	return null;
-    }
-
-    @Override
-    public ItemStack getCurrentItem() {
-	return item.get(upgrades);
-    }
-
-    @Override
-    public Integer getUpgrades() {
-	return this.upgrades;
-    }
-
-    @Override
-    public void setUpgrades(int upgrades) {
-	this.upgrades = upgrades;
+	this.upgrade = upgrade;
+	return true;
     }
 
     @Override
     public void respawn(Player player) {
-	if (this.upgrades != 0)
-	    this.upgrades--;
-	player.getInventory().addItem(getCurrentItem());
+	upgrades.get(upgrade).respawn(player);
+    }
+
+    @Override
+    public String getName() {
+	return upgrades.get(getNextUpgrade()).getName();
+    }
+
+    @Override
+    public Category getCategory() {
+	return upgrades.get(getNextUpgrade()).getCategory();
+    }
+
+    @Override
+    public Currency getCost() {
+	return upgrades.get(getNextUpgrade()).getCost();
+    }
+
+    @Override
+    public String getDescription() {
+	return upgrades.get(getNextUpgrade()).getDescription();
     }
 
     @Override
     public void clicked(Player player) {
-	if (Main.plugin.game.teamManager.playerData.get(player).permanentItems.contains(this)) {
-	    player.sendMessage(Messages.CANT_BUY_ALREADY_PURCHASED);
-	    return;
-	}
-
-	if (Shop.buy(player, this)) {
-	    Main.plugin.game.teamManager.playerData.get(player).permanentItems.add(this);
-	} else {
-	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), getCost()));
-	}
+	upgrades.get(getNextUpgrade()).clicked(player);
     }
-
 }
