@@ -23,7 +23,7 @@ public class SpeedPotionBWI implements BedwarsItem{
 
     public SpeedPotionBWI() {
 	PotionMeta meta = (PotionMeta) item.getItemMeta();
-	meta.addCustomEffect(new PotionEffect(PotionEffectType.SPEED, 45, 1), false);
+	meta.addCustomEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 45, 1), false);
 	meta.setDisplayName(displayName);
 	item.setItemMeta(meta);
     }

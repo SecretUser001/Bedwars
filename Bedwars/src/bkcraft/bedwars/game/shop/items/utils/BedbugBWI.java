@@ -1,16 +1,19 @@
 package bkcraft.bedwars.game.shop.items.utils;
 
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Silverfish;
-import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import bkcraft.bedwars.Main;
 import bkcraft.bedwars.game.Messages;
+import bkcraft.bedwars.game.Team;
 import bkcraft.bedwars.game.shop.Currency;
 import bkcraft.bedwars.game.shop.Shop;
 import bkcraft.bedwars.game.shop.GUI.Category;
@@ -66,8 +69,27 @@ public class BedbugBWI implements BedwarsItem, Listener {
 
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent event) {
-	if (event.getEntity() instanceof Snowball) {
-	    event.getEntity().getWorld().spawn(event.getEntity().getLocation(), Silverfish.class);
+	if (event.getEntityType() == EntityType.SNOWBALL) {
+	    Silverfish silverfish = event.getEntity().getWorld().spawn(event.getEntity().getLocation(),
+		    Silverfish.class);
+	    silverfish.setCustomName(Main.plugin.game.teamManager.playerData
+		    .get((Player) event.getEntity().getShooter()).getTeam().toString());
+	}
+    }
+
+    @EventHandler
+    public void onTarget(EntityTargetEvent event) {
+	if (!(event.getEntity().getType() == EntityType.SILVERFISH)) {
+	    return;
+	}
+
+	if (Team.valueOf(event.getEntity().getName()) == null) {
+	    return;
+	}
+
+	if (Team.valueOf(event.getEntity().getName()) == Main.plugin.game.teamManager.playerData
+		.get((Player) event.getTarget()).getTeam()) {
+	    event.setCancelled(true);
 	}
     }
 }

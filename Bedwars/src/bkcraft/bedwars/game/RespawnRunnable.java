@@ -24,6 +24,7 @@ public class RespawnRunnable extends BukkitRunnable {
 		if (this.countdown == 0) {
 			this.game.respawn(this.player);
 			this.cancel();
+			return;
 		}
 
 		String message = ChatColor.YELLOW + "You will respawn in " + ChatColor.RED + this.countdown + ChatColor.YELLOW

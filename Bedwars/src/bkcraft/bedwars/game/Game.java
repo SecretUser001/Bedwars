@@ -33,7 +33,7 @@ public class Game {
     public void addPlayer(Player player) {
 	if (!started) {
 	    player.getInventory().clear();
-	    
+
 	    player.setHealth(20d);
 	    player.setSaturation(20f);
 	    player.setVelocity(new Vector(0, 0, 0));
@@ -41,6 +41,16 @@ public class Game {
 	    player.setGameMode(GameMode.ADVENTURE);
 
 	    this.teamManager.addPlayer(player);
+	} else {
+	    player.getInventory().clear();
+
+	    player.setHealth(20d);
+	    player.setSaturation(20f);
+	    player.setVelocity(new Vector(0, 0, 0));
+	    player.teleport(new Location(bedwarsMap.world, 0.5, bedwarsMap.SPAWN_HEIGHT, 0.5));
+	    player.setGameMode(GameMode.SPECTATOR);
+	    
+	    this.teamManager.setTeam(player, Team.DEAD);
 	}
     }
 
@@ -99,13 +109,14 @@ public class Game {
 	player.teleport(this.bedwarsMap.spawns.get(this.teamManager.playerData.get(player).getTeam()));
 
 	player.getInventory().clear();
+	player.getActivePotionEffects().clear();
 	
 	data.armor.giveArmor(player);
 
 	for (PermanentBedwarsItem item : this.teamManager.playerData.get(player).permanentItems) {
 	    item.respawn(player);
 	}
-	
+
 	for (UpgradebleBedwarsItem item : this.teamManager.playerData.get(player).upgradebleItems.values()) {
 	    item.respawn(player);
 	}

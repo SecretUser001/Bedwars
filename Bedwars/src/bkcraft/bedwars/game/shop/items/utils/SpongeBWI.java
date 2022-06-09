@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -57,16 +56,18 @@ public class SpongeBWI implements BedwarsItem, Listener {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}
     }
-    
+
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-	new BukkitRunnable() {
-	    
-	    @Override
-	    public void run() {
-		event.getBlock().setType(Material.AIR);
-	    }
-	}.runTaskLater(Main.plugin, 2);
+	if (event.getBlock().getType() == Material.SPONGE) {
+	    new BukkitRunnable() {
+
+		@Override
+		public void run() {
+		    event.getBlock().setType(Material.AIR);
+		}
+	    }.runTaskLater(Main.plugin, 2);
+	}
     }
-    
+
 }

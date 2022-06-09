@@ -16,7 +16,7 @@ public class ChatHandler implements Listener {
 	TeamManager teamManager = Main.plugin.game.teamManager;
 	if (teamManager.getPlayer().contains(event.getPlayer())) {
 	    for (Player player : teamManager.playerData.keySet()) {
-		player.sendMessage(teamManager.playerData.get(player).team.getPrefix() + event.getPlayer().getName()
+		player.sendMessage(teamManager.playerData.get(event.getPlayer()).team.getPrefix() + event.getPlayer().getName()
 			+ " > " + ChatColor.WHITE + event.getMessage());
 	    }
 	    event.setCancelled(true);

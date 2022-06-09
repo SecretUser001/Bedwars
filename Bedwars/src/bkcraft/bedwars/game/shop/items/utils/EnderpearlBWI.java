@@ -2,9 +2,6 @@ package bkcraft.bedwars.game.shop.items.utils;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.inventory.ItemStack;
 
 import bkcraft.bedwars.game.Messages;
@@ -13,7 +10,7 @@ import bkcraft.bedwars.game.shop.Shop;
 import bkcraft.bedwars.game.shop.GUI.Category;
 import bkcraft.bedwars.game.shop.items.BedwarsItem;
 
-public class EnderpearlBWI implements BedwarsItem, Listener {
+public class EnderpearlBWI implements BedwarsItem {
 
     public static ItemStack item = new ItemStack(Material.WATER_BUCKET, 1);
     public static String displayName = "Water Bucket";

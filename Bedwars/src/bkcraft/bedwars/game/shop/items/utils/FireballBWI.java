@@ -91,6 +91,13 @@ public class FireballBWI implements BedwarsItem, Listener {
 	    return;
 	}
 	
+	if(event.getPlayer().getItemInHand().getAmount() > 1) 
+	    event.getPlayer().getItemInHand().setAmount(event.getPlayer().getItemInHand().getAmount());
+	else
+	    event.getPlayer().getInventory().remove(event.getPlayer().getItemInHand());
+	
+	
+	event.setCancelled(true);
 	shootFireball(event.getPlayer());
     }
     
@@ -122,6 +129,6 @@ public class FireballBWI implements BedwarsItem, Listener {
 		arrow.setVelocity(arrowDirection);
 		player.setFireTicks(0);
 	    }
-	}.runTaskLater(Main.plugin, 2);
+	}.runTaskLater(Main.plugin, 3);
     }
 }

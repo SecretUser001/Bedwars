@@ -28,7 +28,7 @@ public class Shop {
 	    }
 
 	    if (itemStack.getType() == Material.IRON_INGOT) {
-		if (itemStack.getAmount() < iron) {
+		if (itemStack.getAmount() <= iron) {
 		    player.getInventory().remove(itemStack);
 		    iron -= itemStack.getAmount();
 		} else {
@@ -36,7 +36,7 @@ public class Shop {
 		    iron = 0;
 		}
 	    } else if (itemStack.getType() == Material.GOLD_INGOT) {
-		if (itemStack.getAmount() < gold) {
+		if (itemStack.getAmount() <= gold) {
 		    player.getInventory().remove(itemStack);
 		    gold -= itemStack.getAmount();
 		} else {
@@ -44,7 +44,7 @@ public class Shop {
 		    gold = 0;
 		}
 	    } else if (itemStack.getType() == Material.DIAMOND) {
-		if (itemStack.getAmount() < diamonds) {
+		if (itemStack.getAmount() <= diamonds) {
 		    player.getInventory().remove(itemStack);
 		    diamonds -= itemStack.getAmount();
 		} else {
@@ -52,7 +52,7 @@ public class Shop {
 		    diamonds = 0;
 		}
 	    } else if (itemStack.getType() == Material.EMERALD) {
-		if (itemStack.getAmount() < emeralds) {
+		if (itemStack.getAmount() <= emeralds) {
 		    player.getInventory().remove(itemStack);
 		    emeralds -= itemStack.getAmount();
 		} else {

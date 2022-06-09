@@ -23,7 +23,7 @@ public class JumpPotionBWI implements BedwarsItem{
 
     public JumpPotionBWI() {
 	PotionMeta meta = (PotionMeta) item.getItemMeta();
-	meta.addCustomEffect(new PotionEffect(PotionEffectType.JUMP, 45, 1), false);
+	meta.addCustomEffect(new PotionEffect(PotionEffectType.JUMP, 20 * 45, 4), false);
 	meta.setDisplayName(displayName);
 	item.setItemMeta(meta);
     }

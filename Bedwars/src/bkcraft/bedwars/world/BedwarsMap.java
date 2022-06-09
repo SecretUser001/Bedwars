@@ -192,24 +192,10 @@ public class BedwarsMap {
 			    this.beds.put(team, new Location[2]);
 			}
 
-			try {
-			    Bukkit.broadcastMessage(this.beds.get(team)[0].toString());
-			    Bukkit.broadcastMessage(this.beds.get(team)[1].toString());
-			} catch (Exception e) {
-			    Bukkit.broadcastMessage("" + this.beds.get(team).length);
-			}
-
 			Location[] bedlocsh = this.beds.get(team);
 			bedlocsh[0] = new Location(this.world, Integer.parseInt(args[2]), Integer.parseInt(args[3]),
 				Integer.parseInt(args[4]));
 			this.beds.put(team, bedlocsh);
-
-			try {
-			    Bukkit.broadcastMessage(this.beds.get(team)[0].toString());
-			    Bukkit.broadcastMessage(this.beds.get(team)[1].toString());
-			} catch (Exception e) {
-			    Bukkit.broadcastMessage("" + this.beds.get(team).length);
-			}
 
 			break;
 		    case "BEDFOOT":
@@ -217,24 +203,10 @@ public class BedwarsMap {
 			    this.beds.put(team, new Location[2]);
 			}
 
-			try {
-			    Bukkit.broadcastMessage(this.beds.get(team)[0].toString());
-			    Bukkit.broadcastMessage(this.beds.get(team)[1].toString());
-			} catch (Exception e) {
-			    Bukkit.broadcastMessage("" + this.beds.get(team).length);
-			}
-
 			Location[] bedlocsf = this.beds.get(team);
 			bedlocsf[1] = new Location(this.world, Integer.parseInt(args[2]), Integer.parseInt(args[3]),
 				Integer.parseInt(args[4]));
 			this.beds.put(team, bedlocsf);
-
-			try {
-			    Bukkit.broadcastMessage(this.beds.get(team)[0].toString());
-			    Bukkit.broadcastMessage(this.beds.get(team)[1].toString());
-			} catch (Exception e) {
-			    Bukkit.broadcastMessage("" + this.beds.get(team).length);
-			}
 
 			break;
 		    case "SHOP":

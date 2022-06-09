@@ -24,6 +24,7 @@ public class InventoryHandler implements Listener {
 	if (GUI.openShops.contains((Player) event.getWhoClicked())) {
 	    Player player = (Player) event.getWhoClicked();
 	    event.setCancelled(true);
+	    
 	    if (!(event.getInventory().getItem(event.getRawSlot()).getType() == Material.AIR)) {
 		event.getWhoClicked().getWorld().playSound(event.getWhoClicked().getLocation(), Sound.ORB_PICKUP, .5f, 1f);
 		if (event.getSlot() < 9) {
