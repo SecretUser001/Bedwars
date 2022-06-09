@@ -1,5 +1,4 @@
 Shop: Wooden Pickaxe is named "Gold Pickaxe"
 Shop: Icon for pickaxe is wooden pickaxe until bought
 Spawner: Max 4 Emeralds per Spawner. Max 8 Diamonds per Spawner
-Item: Invisibility Potion. Armor still visible
-Invis reset after death
+Upgrades

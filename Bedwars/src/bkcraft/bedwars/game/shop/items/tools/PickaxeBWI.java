@@ -30,11 +30,6 @@ public class PickaxeBWI implements UpgradebleBedwarsItem {
     public BedwarsItem getBedwarsItem(int upgrade) {
 	return upgrades.get(upgrade);
     }
-
-    @Override
-    public ItemStack getItem() {
-	return upgrades.get(upgrade).getItem();
-    }
     
     int getNextUpgrade() {
 	if(!bought) {
@@ -47,6 +42,10 @@ public class PickaxeBWI implements UpgradebleBedwarsItem {
 	return this.upgrade;
     }
 
+    @Override
+    public ItemStack getItem() {
+	return upgrades.get(upgrade).getItem();
+    }
     
     @Override
     public boolean upgrade(int upgrade) {

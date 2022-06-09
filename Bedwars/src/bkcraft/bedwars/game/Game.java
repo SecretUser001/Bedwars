@@ -50,7 +50,7 @@ public class Game {
 	    player.teleport(new Location(bedwarsMap.world, 0.5, bedwarsMap.SPAWN_HEIGHT, 0.5));
 	    player.setGameMode(GameMode.SPECTATOR);
 	    
-	    this.teamManager.setTeam(player, Team.DEAD);
+	    this.teamManager.addPlayer(player, Team.DEAD);
 	}
     }
 

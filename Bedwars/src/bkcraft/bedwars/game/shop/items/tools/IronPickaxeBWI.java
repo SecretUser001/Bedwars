@@ -14,7 +14,7 @@ import bkcraft.bedwars.game.shop.items.PermanentBedwarsItem;
 
 public class IronPickaxeBWI implements PermanentBedwarsItem {
 
-    public static ItemStack item = new ItemStack(Material.WOOD_PICKAXE);
+    public static ItemStack item = new ItemStack(Material.IRON_PICKAXE);
     public static String name = "Iron Pickaxe";
     public static Category category = Category.Tools;
     public static String description = "Permanent Pickaxe";
