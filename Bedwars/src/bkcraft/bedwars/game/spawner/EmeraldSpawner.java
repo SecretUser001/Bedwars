@@ -4,21 +4,42 @@ import java.util.HashMap;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.scheduler.BukkitTask;
 
 import bkcraft.bedwars.Main;
 
-public class EmeraldSpawner extends Spawner {
+public class EmeraldSpawner implements Spawner {
 
-	public EmeraldSpawner(Location location) {
-		super(location);
+    private static HashMap<Material, Double> delay;
+    private static HashMap<Material, Integer> maxMaterials;
+    private Location location;
+    public boolean enabled;
+    private BukkitTask scheduler;
+    
+    public EmeraldSpawner(Location location) {
+	this.location = location;
+	this.enabled = false;
+	
+	delay = new HashMap<Material, Double>();
+	delay.put(Material.EMERALD, 30.);
+	
+	maxMaterials = new HashMap<Material, Integer>();
+	maxMaterials.put(Material.EMERALD, 4);
+    }
 
-		this.delay = new HashMap<Material, Double>();
-		this.delay.put(Material.EMERALD, 20.);
-	}
+    @Override
+    public void startSpawner() {
+	this.scheduler = new SpawnerRunnable(this.location, delay, false).runTaskTimer(Main.plugin, 5, 5);
+	this.enabled = true;
+    }
 
-	@Override
-	public void startSpawner() {
-		this.scheduler = new SpawnerRunnable(this.location, this.delay, false).runTaskTimer(Main.plugin, 5, 5);
-		this.enabled = true;
-	}
+    @Override
+    public void setDelay(HashMap<Material, Double> newDelay) {
+	delay = newDelay;
+    }
+
+    @Override
+    public void stopSpawner() {
+	this.scheduler.cancel();
+    }
 }

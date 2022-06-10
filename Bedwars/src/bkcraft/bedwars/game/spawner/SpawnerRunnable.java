@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -14,6 +15,7 @@ public class SpawnerRunnable extends BukkitRunnable {
 
     public HashMap<Material, Double> delay;
     public HashMap<Material, Long> lastSpawn;
+    public HashMap<Material, Integer> maxMaterials;
     Location location;
 
     boolean dropNaturally;
@@ -34,6 +36,9 @@ public class SpawnerRunnable extends BukkitRunnable {
     @Override
     public void run() {
 	for (Entry<Material, Long> entry : this.lastSpawn.entrySet()) {
+	    if(getCount(entry.getKey()) > maxMaterials.get(entry.getKey()))
+		return;
+	    
 	    if (System.currentTimeMillis() - this.delay.get(entry.getKey()) > entry.getValue()) {
 		this.lastSpawn.put(entry.getKey(), entry.getValue() + (long) (this.delay.get(entry.getKey()) * 1000));
 		if (this.dropNaturally) {
@@ -44,5 +49,20 @@ public class SpawnerRunnable extends BukkitRunnable {
 		}
 	    }
 	}
+    }
+
+    public Integer getCount(Material material) {
+	Integer count = 0;
+	for (Entity entity : location.getWorld().getEntities()) {
+	    if (!(entity instanceof Item))
+		continue;
+
+	    Item item = (Item) entity;
+
+	    if (item.getItemStack().getType() == material)
+		count += item.getItemStack().getAmount();
+	}
+	
+	return count;
     }
 }

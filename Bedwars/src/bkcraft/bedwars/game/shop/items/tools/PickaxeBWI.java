@@ -44,7 +44,7 @@ public class PickaxeBWI implements UpgradebleBedwarsItem {
 
     @Override
     public ItemStack getItem() {
-	return upgrades.get(upgrade).getItem();
+	return upgrades.get(getNextUpgrade()).getItem();
     }
     
     @Override

@@ -44,7 +44,7 @@ public class AxeBWI implements UpgradebleBedwarsItem {
 
     @Override
     public ItemStack getItem() {
-	return upgrades.get(upgrade).getItem();
+	return upgrades.get(getNextUpgrade()).getItem();
     }
 
     @Override
@@ -52,6 +52,7 @@ public class AxeBWI implements UpgradebleBedwarsItem {
 	if (upgrade <= this.upgrade) {
 	    return false;
 	}
+		
 	this.upgrade = upgrade;
 	return true;
     }

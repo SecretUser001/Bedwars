@@ -70,11 +70,24 @@ public class DiamondAxeBWI implements PermanentBedwarsItem {
 	
 	Shop.buy(player, this);
     
+	removeItem(player);
 	respawn(player);
     }
 
     @Override
     public void respawn(Player player) {
 	player.getInventory().addItem(getItem());
+    }
+    
+    private static void removeItem(Player player) {
+	for (ItemStack itemStack : player.getInventory()) {
+	    if (itemStack == null)
+		return;
+	    
+	    if (itemStack.getType().equals(item.getType()) && itemStack.hasItemMeta()
+		    && itemStack.getItemMeta().getDisplayName().equals(name)) {
+		player.getInventory().remove(itemStack);
+	    }
+	}
     }
 }

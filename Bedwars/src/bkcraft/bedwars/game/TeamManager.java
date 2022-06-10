@@ -37,7 +37,7 @@ public class TeamManager {
     public void createTeams() {
 	ArrayList<Player> players = new ArrayList<>(this.playerData.keySet());
 	Collections.shuffle(players);
-	
+
 	while (!players.isEmpty()) {
 	    for (Team team : TEAM_ORDER.subList(0, this.teamCount - 1)) {
 		if (!players.isEmpty()) {

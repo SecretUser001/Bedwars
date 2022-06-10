@@ -4,21 +4,42 @@ import java.util.HashMap;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.scheduler.BukkitTask;
 
 import bkcraft.bedwars.Main;
 
-public class DiamondSpawner extends Spawner {
+public class DiamondSpawner implements Spawner {
 
-	public DiamondSpawner(Location location) {
-		super(location);
+    private static HashMap<Material, Double> delay;
+    private static HashMap<Material, Integer> maxMaterials;
+    private Location location;
+    public boolean enabled;
+    private BukkitTask scheduler;
 
-		this.delay = new HashMap<Material, Double>();
-		this.delay.put(Material.DIAMOND, 20.);
-	}
+    public DiamondSpawner(Location location) {
+	this.location = location;
+	this.enabled = false;
 
-	@Override
-	public void startSpawner() {
-		this.scheduler = new SpawnerRunnable(this.location, this.delay, false).runTaskTimer(Main.plugin, 5, 5);
-		this.enabled = true;
-	}
+	delay = new HashMap<Material, Double>();
+	delay.put(Material.DIAMOND, 20.);
+
+	maxMaterials = new HashMap<Material, Integer>();
+	maxMaterials.put(Material.DIAMOND, 8);
+    }
+
+    @Override
+    public void startSpawner() {
+	this.scheduler = new SpawnerRunnable(this.location, delay, false).runTaskTimer(Main.plugin, 5, 5);
+	this.enabled = true;
+    }
+
+    @Override
+    public void setDelay(HashMap<Material, Double> newDelay) {
+	delay = newDelay;
+    }
+
+    @Override
+    public void stopSpawner() {
+	this.scheduler.cancel();
+    }
 }
