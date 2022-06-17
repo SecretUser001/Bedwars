@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -16,11 +17,13 @@ public class TeamManager {
     public ArrayList<Team> TEAM_ORDER = new ArrayList<Team>(
 	    Arrays.asList(Team.BLUE, Team.YELLOW, Team.RED, Team.GREEN));
     public HashMap<Team, Boolean> beds;
-
+    public Set<Team> teams;
+    
     public TeamManager(int teamCount) {
 	this.teamCount = teamCount;
 	this.playerData = new HashMap<Player, PlayerData>();
 	this.beds = new HashMap<Team, Boolean>();
+	this.teams = new HashSet<Team>();
     }
 
     public void addPlayer(Player player) {
@@ -42,6 +45,7 @@ public class TeamManager {
 	    for (Team team : TEAM_ORDER.subList(0, this.teamCount - 1)) {
 		if (!players.isEmpty()) {
 		    this.playerData.get(players.get(0)).setTeam(team);
+		    this.teams.add(team);
 		    players.remove(0);
 		}
 	    }

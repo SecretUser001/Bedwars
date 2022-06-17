@@ -20,10 +20,12 @@ public class SpawnerRunnable extends BukkitRunnable {
 
     boolean dropNaturally;
 
-    public SpawnerRunnable(Location location, HashMap<Material, Double> delay, boolean dropNaturally) {
+    public SpawnerRunnable(Location location, HashMap<Material, Double> delay, HashMap<Material, Integer> maxMaterials,
+	    boolean dropNaturally) {
 	this.location = location.add(0.5, 0, 0.5);
 	this.delay = delay;
-
+	this.maxMaterials = maxMaterials;
+	
 	this.dropNaturally = dropNaturally;
 
 	this.lastSpawn = new HashMap<Material, Long>();
@@ -36,9 +38,10 @@ public class SpawnerRunnable extends BukkitRunnable {
     @Override
     public void run() {
 	for (Entry<Material, Long> entry : this.lastSpawn.entrySet()) {
-	    if(getCount(entry.getKey()) > maxMaterials.get(entry.getKey()))
+	    if (!(maxMaterials.containsKey(entry.getKey())
+		    || getCount(entry.getKey()) > maxMaterials.get(entry.getKey())))
 		return;
-	    
+
 	    if (System.currentTimeMillis() - this.delay.get(entry.getKey()) > entry.getValue()) {
 		this.lastSpawn.put(entry.getKey(), entry.getValue() + (long) (this.delay.get(entry.getKey()) * 1000));
 		if (this.dropNaturally) {
@@ -62,7 +65,7 @@ public class SpawnerRunnable extends BukkitRunnable {
 	    if (item.getItemStack().getType() == material)
 		count += item.getItemStack().getAmount();
 	}
-	
+
 	return count;
     }
 }

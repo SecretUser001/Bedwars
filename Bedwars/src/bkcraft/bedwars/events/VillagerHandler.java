@@ -15,7 +15,7 @@ public class VillagerHandler implements Listener {
     public void onVillagerClick(PlayerInteractEntityEvent event) {
 	if (Main.plugin.game.teamManager.playerData.containsKey(event.getPlayer())
 		&& event.getRightClicked() instanceof Villager) {
-	    GUI.open(event.getPlayer(), Category.Blocks);
+	    GUI.openShop(event.getPlayer(), Category.Blocks);
 	    event.setCancelled(true);
 	}
     }

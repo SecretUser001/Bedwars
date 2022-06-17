@@ -30,7 +30,7 @@ public class GUI {
     public static HashMap<Category, HashMap<Integer, BedwarsItem>> slotNumbers = new HashMap<Category, HashMap<Integer, BedwarsItem>>();
     public static HashMap<Player, Category> openCategory = new HashMap<Player, Category>();
 
-    public static void open(Player player, Category category) {
+    public static void openShop(Player player, Category category) {
 	openCategory.put(player, category);
 	if (openShops.contains(player)) {
 	    Inventory inventory = player.getOpenInventory().getTopInventory();
@@ -121,6 +121,6 @@ public class GUI {
     }
     
     public static void refresh(Player player) {
-	open(player, openCategory.get(player));
+	openShop(player, openCategory.get(player));
     }
 }

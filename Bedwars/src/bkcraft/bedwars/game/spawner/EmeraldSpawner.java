@@ -29,7 +29,7 @@ public class EmeraldSpawner implements Spawner {
 
     @Override
     public void startSpawner() {
-	this.scheduler = new SpawnerRunnable(this.location, delay, false).runTaskTimer(Main.plugin, 5, 5);
+	this.scheduler = new SpawnerRunnable(this.location, delay, maxMaterials, false).runTaskTimer(Main.plugin, 5, 5);
 	this.enabled = true;
     }
 

@@ -17,7 +17,8 @@ public class Game {
 
     public BedwarsMap bedwarsMap;
     public TeamManager teamManager;
-
+    public UpgradeManager upgradeManager;
+    
     public boolean started;
 
     public Game(BedwarsMap bedwarsMap) {
@@ -26,7 +27,8 @@ public class Game {
 	this.bedwarsMap.readInformation();
 
 	this.teamManager = new TeamManager(this.bedwarsMap.TEAM_COUNT);
-
+	this.upgradeManager = new UpgradeManager(teamManager.teams);
+	
 	this.started = false;
     }
 

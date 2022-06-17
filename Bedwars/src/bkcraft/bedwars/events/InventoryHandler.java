@@ -28,7 +28,7 @@ public class InventoryHandler implements Listener {
 	    if (!(event.getInventory().getItem(event.getRawSlot()).getType() == Material.AIR)) {
 		event.getWhoClicked().getWorld().playSound(event.getWhoClicked().getLocation(), Sound.ORB_PICKUP, .5f, 1f);
 		if (event.getSlot() < 9) {
-		    GUI.open(player, Category
+		    GUI.openShop(player, Category
 			    .valueOf(event.getInventory().getItem(event.getSlot()).getItemMeta().getDisplayName()));
 		} else if (GUI.itemSlots.contains(event.getSlot())) {
 		    GUI.slotNumbers.get(GUI.openCategory.get(player)).get(event.getSlot()).clicked(player);

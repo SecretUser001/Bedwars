@@ -19,6 +19,7 @@ import bkcraft.bedwars.game.shop.items.melee.DiamondSwordBWI;
 import bkcraft.bedwars.game.shop.items.melee.IronSwordBWI;
 import bkcraft.bedwars.game.shop.items.melee.KnockbackStickBWI;
 import bkcraft.bedwars.game.shop.items.melee.StoneSwordBWI;
+import bkcraft.bedwars.game.shop.items.melee.TemplateItemBWI;
 import bkcraft.bedwars.game.shop.items.potions.InvisibilityPotionBWI;
 import bkcraft.bedwars.game.shop.items.potions.JumpPotionBWI;
 import bkcraft.bedwars.game.shop.items.potions.SpeedPotionBWI;
@@ -45,7 +46,7 @@ public class ItemList {
     public static List<BedwarsItem> items = new ArrayList<>(Arrays.asList(new ChainArmorBWI(), new IronArmorBWI(),
 	    new DiamondArmorBWI(), new WoolBWI(), new ClayBWI(), new BlastProofGlasBWI(), new EndstoneBWI(),
 	    new LadderBWI(), new OakWoodPlanksBWI(), new ObsidianBWI(), new StoneSwordBWI(), new IronSwordBWI(),
-	    new DiamondSwordBWI(), new KnockbackStickBWI(), new SpeedPotionBWI(), new JumpPotionBWI(),
+	    new DiamondSwordBWI(), new KnockbackStickBWI(), new TemplateItemBWI(), new SpeedPotionBWI(), new JumpPotionBWI(),
 	    new InvisibilityPotionBWI(), new ArrowsBWI(), new BowBWI(), new BowPowerBWI(), new BowPunchBWI(),
 	    new ShearsBWI(), new GoldenAppleBWI(), new BedbugBWI(), new DreamDefenderBWI(), new FireballBWI(),
 	    new TNTBWI(), new EnderpearlBWI(), new WaterbucketBWI(), new BridgeeggBWI(), new MagicMilkBWI(),

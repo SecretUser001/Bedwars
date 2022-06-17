@@ -2,6 +2,7 @@ package bkcraft.bedwars.game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import bkcraft.bedwars.game.shop.upgrades.TeamUpgrade;
 
@@ -9,7 +10,7 @@ public class UpgradeManager {
 
     public HashMap<Team, HashMap<TeamUpgrade, Integer>> upgrades;
 
-    public UpgradeManager(ArrayList<Team> teams) {
+    public UpgradeManager(Set<Team> teams) {
 	this.upgrades = new HashMap<>();
 
 	HashMap<TeamUpgrade, Integer> upgrades = new HashMap<TeamUpgrade, Integer>();

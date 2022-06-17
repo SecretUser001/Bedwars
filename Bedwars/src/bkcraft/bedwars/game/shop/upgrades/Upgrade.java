@@ -1,6 +1,9 @@
 package bkcraft.bedwars.game.shop.upgrades;
 
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import bkcraft.bedwars.game.Team;
 
 public interface Upgrade {
 
@@ -9,15 +12,11 @@ public interface Upgrade {
     public String getName();
     
     public String getDescription();
-    
-    public TeamUpgrade getUpgrade();
-    
+        
     public Integer getMaxUpgrade();
     
-    public Integer getCurrentUpgrade();
+    public boolean canUpgrade(Team team);
     
-    public boolean hasNext();
-        
-    public boolean upgrade();
+    public boolean upgrade(Player player);
     
 }
