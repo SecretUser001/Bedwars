@@ -4,7 +4,11 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import bkcraft.bedwars.Main;
+import bkcraft.bedwars.events.bedwarsevents.ItemBuyEvent;
+import bkcraft.bedwars.events.bedwarsevents.TeamUpgradeEvent;
 import bkcraft.bedwars.game.shop.items.BedwarsItem;
+import bkcraft.bedwars.game.shop.upgrades.Upgrade;
 
 public class Shop {
 
@@ -17,10 +21,42 @@ public class Shop {
 	    return false;
 	}
 
-	int iron = bedwarsItem.getCost().Iron;
-	int gold = bedwarsItem.getCost().Gold;
-	int diamonds = bedwarsItem.getCost().Diamond;
-	int emeralds = bedwarsItem.getCost().Emerald;
+	if (!Main.plugin.getEventHandler().call(new ItemBuyEvent(player, bedwarsItem))) {
+	    removeCurrency(player, bedwarsItem.getCost());
+	    return true;
+	}
+
+	return false;
+    }
+
+    public static boolean canUpgrade(Player player, Upgrade upgrade) {
+	int level = Main.plugin.getGame().getTeamManager().getUpgrade(player, upgrade.getUpgrade());
+	return level < upgrade.getMaxUpgrade() && getCurrency(player).has(upgrade.getCost(level + 1));
+    }
+
+    public static boolean upgrade(Player player, Upgrade upgrade) {
+	if (!canUpgrade(player, upgrade)) {
+	    return false;
+	}
+	
+	int level = Main.plugin.getGame().getTeamManager().getUpgrade(player, upgrade.getUpgrade());
+	
+	if(!Main.plugin.getEventHandler().call(new TeamUpgradeEvent(player, upgrade.getUpgrade()))) {
+	    removeCurrency(player, upgrade.getCost(level + 1));
+	    
+	    Main.plugin.getGame().getTeamManager().setUpgradeLevel(player, upgrade.getUpgrade(), level + 1);
+	    
+	    return true;
+	}
+	
+	return false;
+    }
+
+    private static void removeCurrency(Player player, Currency currency) {
+	int iron = currency.getIron();
+	int gold = currency.getGold();
+	int diamonds = currency.getDiamonds();
+	int emeralds = currency.getEmeralds();
 
 	for (ItemStack itemStack : player.getInventory().getContents()) {
 	    if (itemStack == null) {
@@ -61,7 +97,6 @@ public class Shop {
 		}
 	    }
 	}
-	return true;
     }
 
     public static Currency getCurrency(Player player) {

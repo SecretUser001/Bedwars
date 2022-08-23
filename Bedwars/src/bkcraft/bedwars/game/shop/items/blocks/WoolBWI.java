@@ -49,7 +49,7 @@ public class WoolBWI implements BedwarsItem {
     public void clicked(Player player) {
 	if (Shop.buy(player, this)) {
 	    ItemStack coloredWool = new ItemStack(item);
-	    coloredWool.setDurability(Main.plugin.game.teamManager.playerData.get(player).getTeam().getDyeColor().getData());
+	    coloredWool.setDurability(Main.plugin.getGame().getTeamManager().getPlayerData(player).getTeam().getDyeColor().getData());
 	    player.getInventory().addItem(coloredWool);
 	} else {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));

@@ -10,14 +10,15 @@ import org.bukkit.util.Vector;
 import bkcraft.bedwars.Main;
 import bkcraft.bedwars.game.shop.items.PermanentBedwarsItem;
 import bkcraft.bedwars.game.shop.items.UpgradebleBedwarsItem;
+import bkcraft.bedwars.game.shop.upgrades.UpgradeManager;
 import bkcraft.bedwars.game.title.LegacyTitle;
 import bkcraft.bedwars.world.BedwarsMap;
 
 public class Game {
 
-    public BedwarsMap bedwarsMap;
-    public TeamManager teamManager;
-    public UpgradeManager upgradeManager;
+    private BedwarsMap bedwarsMap;
+    private TeamManager teamManager;
+    private UpgradeManager upgradeManager;
     
     public boolean started;
 
@@ -27,13 +28,14 @@ public class Game {
 	this.bedwarsMap.readInformation();
 
 	this.teamManager = new TeamManager(this.bedwarsMap.TEAM_COUNT);
-	this.upgradeManager = new UpgradeManager(teamManager.teams);
+	this.upgradeManager = new UpgradeManager();
 	
 	this.started = false;
     }
 
     public void addPlayer(Player player) {
 	if (!started) {
+	    player.getEnderChest().clear();
 	    player.getInventory().clear();
 
 	    player.setHealth(20d);
@@ -122,6 +124,18 @@ public class Game {
 	for (UpgradebleBedwarsItem item : this.teamManager.playerData.get(player).upgradebleItems.values()) {
 	    item.respawn(player);
 	}
+    }
+
+    public BedwarsMap getBedwarsMap() {
+        return bedwarsMap;
+    }
+
+    public TeamManager getTeamManager() {
+        return teamManager;
+    }
+
+    public UpgradeManager getUpgradeManager() {
+        return upgradeManager;
     }
 
 }

@@ -13,8 +13,10 @@ import bkcraft.bedwars.events.ChatHandler;
 import bkcraft.bedwars.events.DeathHandler;
 import bkcraft.bedwars.events.FoodHandler;
 import bkcraft.bedwars.events.InventoryHandler;
+import bkcraft.bedwars.events.ItemDropHandler;
 import bkcraft.bedwars.events.JoinHandler;
 import bkcraft.bedwars.events.VillagerHandler;
+import bkcraft.bedwars.events.bedwarsevents.EventHandler;
 import bkcraft.bedwars.game.Game;
 import bkcraft.bedwars.game.shop.items.melee.TemplateItemBWI;
 import bkcraft.bedwars.game.shop.items.potions.InvisibilityPotionBWI;
@@ -26,6 +28,7 @@ import bkcraft.bedwars.game.shop.items.utils.MagicMilkBWI;
 import bkcraft.bedwars.game.shop.items.utils.SpongeBWI;
 import bkcraft.bedwars.game.shop.items.utils.TNTBWI;
 import bkcraft.bedwars.game.shop.items.utils.WaterbucketBWI;
+import bkcraft.bedwars.game.shop.upgrades.Upgrade;
 import bkcraft.bedwars.world.FilePath;
 import bkcraft.bedwars.world.MapManager;
 import bkcraft.bedwars.world.MapUtils;
@@ -37,7 +40,9 @@ public class Main extends JavaPlugin {
     public static Random random;
 
     public MapManager mapManager;
-    public Game game;
+    private Game game;
+
+    private EventHandler eventHandler;
 
     @Override
     public void onEnable() {
@@ -50,11 +55,12 @@ public class Main extends JavaPlugin {
 	this.getServer().getPluginManager().registerEvents(new FoodHandler(), this);
 	this.getServer().getPluginManager().registerEvents(new VillagerHandler(), this);
 	this.getServer().getPluginManager().registerEvents(new InventoryHandler(), this);
-
+	this.getServer().getPluginManager().registerEvents(new ItemDropHandler(), this);
+	
 	this.getServer().getPluginManager().registerEvents(new TemplateItemBWI(), this);
-	
+
 	this.getServer().getPluginManager().registerEvents(new InvisibilityPotionBWI(), this);
-	
+
 	this.getServer().getPluginManager().registerEvents(new BedbugBWI(), this);
 	this.getServer().getPluginManager().registerEvents(new DreamDefenderBWI(), this);
 	this.getServer().getPluginManager().registerEvents(new FireballBWI(), this);
@@ -63,9 +69,9 @@ public class Main extends JavaPlugin {
 	this.getServer().getPluginManager().registerEvents(new BridgeeggBWI(), this);
 	this.getServer().getPluginManager().registerEvents(new MagicMilkBWI(), this);
 	this.getServer().getPluginManager().registerEvents(new SpongeBWI(), this);
-	
+
 	this.getServer().getPluginManager().registerEvents(new DeathHandler(), this);
-	
+
 	this.getCommand("game").setExecutor(new GameCmd());
 
 	FilePath.init();
@@ -83,7 +89,11 @@ public class Main extends JavaPlugin {
 
 	this.mapManager = new MapManager(this);
 	this.game = new Game(this.mapManager.createMap());
-
+	this.eventHandler = new EventHandler();
+	
+	for(Upgrade upgrade : this.game.getUpgradeManager().getUpgrades().values()) {
+	    upgrade.registerListeners();
+	}
     }
 
     @Override
@@ -95,5 +105,17 @@ public class Main extends JavaPlugin {
 		MapUtils.deleteFolderContent(worldFolder);
 	    }
 	}
+    }
+
+    public EventHandler getEventHandler() {
+	return this.eventHandler;
+    }
+
+    public void setGame(Game game) {
+	this.game = game;
+    }
+
+    public Game getGame() {
+	return this.game;
     }
 }

@@ -11,26 +11,26 @@ import bkcraft.bedwars.game.Game;
 
 public class GameCmd implements CommandExecutor {
 
-	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		switch (args.length) {
-		case 0:
-			sender.sendMessage("/game");
-			break;
-		case 1:
-			switch (args[0].toLowerCase()) {
-			case "new":
-				Main.plugin.game = new Game(Main.plugin.mapManager.createMap());
-				for (Player player : Bukkit.getOnlinePlayers()) {
-					Main.plugin.game.addPlayer(player);
-				}
-			case "start":
-				Main.plugin.game.startCountdown();
-			}
+	switch (args.length) {
+	case 0:
+	    sender.sendMessage("/game");
+	    break;
+	case 1:
+	    switch (args[0].toLowerCase()) {
+	    case "new":
+		Main.plugin.setGame(new Game(Main.plugin.mapManager.createMap()));
+		for (Player player : Bukkit.getOnlinePlayers()) {
+		    Main.plugin.getGame().addPlayer(player);
 		}
-
-		return false;
+	    case "start":
+		Main.plugin.getGame().startCountdown();
+	    }
 	}
+
+	return false;
+    }
 
 }

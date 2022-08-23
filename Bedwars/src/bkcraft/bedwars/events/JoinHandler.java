@@ -10,7 +10,7 @@ public class JoinHandler implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-	Main.plugin.game.addPlayer(e.getPlayer());
+	Main.plugin.getGame().addPlayer(e.getPlayer());
     }
 
 }

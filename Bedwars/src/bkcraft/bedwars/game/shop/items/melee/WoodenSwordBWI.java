@@ -13,7 +13,6 @@ import bkcraft.bedwars.game.shop.items.PermanentBedwarsItem;
 
 public class WoodenSwordBWI implements PermanentBedwarsItem{
 
-
     public static ItemStack item = new ItemStack(Material.WOOD_SWORD, 1);
     public static String displayName = "Wooden Sword";
     public static Category category = Category.Melee;
@@ -52,13 +51,13 @@ public class WoodenSwordBWI implements PermanentBedwarsItem{
 
     @Override
     public void clicked(Player player) {
-	if(Main.plugin.game.teamManager.playerData.get(player).permanentItems.contains(this)) {
+	if(Main.plugin.getGame().getTeamManager().getPlayerData(player).permanentItems.contains(this)) {
 	    player.sendMessage(Messages.CANT_BUY_ALREADY_PURCHASED);
 	    return;
 	}
 	
 	if (Shop.buy(player, this)) {
-	    Main.plugin.game.teamManager.playerData.get(player).permanentItems.add(this);
+	    Main.plugin.getGame().getTeamManager().getPlayerData(player).permanentItems.add(this);
 	} else {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}

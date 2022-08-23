@@ -106,7 +106,7 @@ public class FireballBWI implements BedwarsItem, Listener {
 	if (event.getEntity() instanceof Fireball) {
 	    Iterator<Block> iterator = event.blockList().iterator();
 	    while (iterator.hasNext()) {
-		if(Main.plugin.game.bedwarsMap.isMap(iterator.next().getLocation())) {
+		if(Main.plugin.getGame().getBedwarsMap().isMap(iterator.next().getLocation())) {
 		    iterator.remove();
 		}
 	    }

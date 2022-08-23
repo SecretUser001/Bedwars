@@ -17,6 +17,7 @@ public class InventoryHandler implements Listener {
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
 	GUI.openShops.remove(event.getPlayer());
+	GUI.openUpgrades.remove(event.getPlayer());
     }
 
     @EventHandler
@@ -24,17 +25,29 @@ public class InventoryHandler implements Listener {
 	if (GUI.openShops.contains((Player) event.getWhoClicked())) {
 	    Player player = (Player) event.getWhoClicked();
 	    event.setCancelled(true);
-	    
+
 	    if (!(event.getInventory().getItem(event.getRawSlot()).getType() == Material.AIR)) {
-		event.getWhoClicked().getWorld().playSound(event.getWhoClicked().getLocation(), Sound.ORB_PICKUP, .5f, 1f);
+		event.getWhoClicked().getWorld().playSound(event.getWhoClicked().getLocation(), Sound.ORB_PICKUP, .5f,
+			1f);
 		if (event.getSlot() < 9) {
 		    GUI.openShop(player, Category
 			    .valueOf(event.getInventory().getItem(event.getSlot()).getItemMeta().getDisplayName()));
-		} else if (GUI.itemSlots.contains(event.getSlot())) {
-		    GUI.slotNumbers.get(GUI.openCategory.get(player)).get(event.getSlot()).clicked(player);
+		} else if (GUI.shopItemSlots.contains(event.getSlot())) {
+		    GUI.shopSlotNumbers.get(GUI.openCategory.get(player)).get(event.getSlot()).clicked(player);
 		    GUI.refresh(player);
 		}
 	    }
+	} else if (GUI.openUpgrades.contains((Player) event.getWhoClicked())) {
+	    Player player = (Player) event.getWhoClicked();
+	    event.setCancelled(true);
+	    
+	    if(!(event.getInventory().getItem(event.getRawSlot()).getType() == Material.AIR)) {
+		event.getWhoClicked().getWorld().playSound(event.getWhoClicked().getLocation(), Sound.ORB_PICKUP,  .5f, 1f);
+		if(GUI.upgradesItemSlots.contains(event.getSlot())) {
+		    GUI.upgradesSlotNumbers.get(event.getSlot()).clicked(player);
+		}
+	    }
+	    
 	} else if (event.getSlotType() == SlotType.ARMOR) {
 	    event.setCancelled(true);
 	}

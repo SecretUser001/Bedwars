@@ -59,14 +59,14 @@ public class DiamondArmorBWI implements PermanentBedwarsItem {
 
     @Override
     public void clicked(Player player) {
-	Armor armor = new DiamondArmor(Main.plugin.game.teamManager.playerData.get(player).getTeam());
-	if(Main.plugin.game.teamManager.playerData.get(player).armor.getUpgrade() >= armor.getUpgrade()) {
+	Armor armor = new DiamondArmor(Main.plugin.getGame().getTeamManager().getPlayerData(player).getTeam());
+	if(Main.plugin.getGame().getTeamManager().getPlayerData(player).armor.getUpgrade() >= armor.getUpgrade()) {
 	    player.sendMessage(Messages.CANT_BUY_ALREADY_PURCHASED);
 	    return;
 	}
 	
 	if (Shop.buy(player, this)) {
-	    Main.plugin.game.teamManager.playerData.get(player).armor = armor;
+	    Main.plugin.getGame().getTeamManager().getPlayerData(player).armor = armor;
 	    armor.giveArmor(player);
 	} else {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));

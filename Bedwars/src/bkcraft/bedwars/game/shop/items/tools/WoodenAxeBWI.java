@@ -66,7 +66,7 @@ public class WoodenAxeBWI implements PermanentBedwarsItem {
 	
 	Shop.buy(player, this);
 	
-	Main.plugin.game.teamManager.playerData.get(player).upgradebleItems.put(axe.getItemName(), axe);
+	Main.plugin.getGame().getTeamManager().getPlayerData(player).upgradebleItems.put(axe.getItemName(), axe);
 	axe.bought = true;
 	
 	respawn(player);

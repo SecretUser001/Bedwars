@@ -7,14 +7,18 @@ import java.util.Set;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import bkcraft.bedwars.Main;
-import bkcraft.bedwars.game.Team;
+import bkcraft.bedwars.events.bedwarsevents.Event;
+import bkcraft.bedwars.events.bedwarsevents.EventHandler;
+import bkcraft.bedwars.events.bedwarsevents.ItemBuyEvent;
+import bkcraft.bedwars.events.bedwarsevents.ItemBuyListener;
 import bkcraft.bedwars.game.shop.Currency;
+import bkcraft.bedwars.game.shop.Shop;
+import bkcraft.bedwars.game.shop.items.PermanentBedwarsItem;
 
 public class SharpnessBWU implements Upgrade {
 
@@ -22,19 +26,14 @@ public class SharpnessBWU implements Upgrade {
     public static TeamUpgrade upgrade;
     public static String name = "Sharpened Swords";
     public static String description = "Your team permanently gains Sharpness I on all swords.";
-    public static Integer maxUpgrade = 1;
-    public static ArrayList<Currency> cost = new ArrayList<Currency>(Arrays.asList(new Currency(0, 0, 8, 0)));
+    public static Integer maxUpgrade = 2;
+    public static ArrayList<Currency> cost = new ArrayList<Currency>(Arrays.asList(new Currency(0, 0, 8, 0), new Currency(0, 0, 16, 0)));
     public static Set<Material> swords = new HashSet<Material>(Arrays.asList(Material.WOOD_SWORD, Material.STONE_SWORD, Material.IRON_SWORD, Material.GOLD_SWORD, Material.DIAMOND_SWORD));
     
     public SharpnessBWU() {
 	ItemMeta meta = item.getItemMeta();
 	meta.setDisplayName(name);
 	item.setItemMeta(meta);
-    }
-
-    @Override
-    public ItemStack getItem() {
-	return item;
     }
 
     @Override
@@ -49,38 +48,68 @@ public class SharpnessBWU implements Upgrade {
 
     @Override
     public Integer getMaxUpgrade() {
-	// TODO Auto-generated method stub
-	return null;
+	return maxUpgrade;
     }
 
     @Override
-    public boolean canUpgrade(Team team) {
-	return Main.plugin.game.upgradeManager.getUpgrade(team, upgrade) < maxUpgrade;
+    public ItemStack getItem() {
+	return item;
     }
 
     @Override
-    public boolean upgrade(Player player) {
-	Team team = Main.plugin.game.teamManager.playerData.get(player).getTeam();
+    public Currency getCost(int level) {
+	if(level > maxUpgrade) {
+	    return null;
+	}
 	
-	if (!canUpgrade(team))
-	    return false;
+	return cost.get(level - 1);
+    }
 
-	int afterUpgrade = Main.plugin.game.upgradeManager.getUpgrade(team, upgrade) + 1;
-	
-	Main.plugin.game.upgradeManager.setUpgrade(team, upgrade,
-		afterUpgrade);
-	
-	for(Player tPlayer : Main.plugin.game.teamManager.getTeam(team)) {
-	    for(ItemStack itemStack : tPlayer.getInventory()) {
-		if(swords.contains(itemStack.getType())) {
-		    ItemMeta meta = itemStack.getItemMeta();
-		    meta.addEnchant(Enchantment.DAMAGE_ALL, afterUpgrade, false);
-		    itemStack.setItemMeta(meta);
+    @Override
+    public TeamUpgrade getUpgrade() {
+	return upgrade;
+    }
+
+    @Override
+    public void clicked(Player player) {
+	if(Shop.canUpgrade(player, this)) {
+	    Shop.upgrade(player, this);
+	    
+	    int level = Main.plugin.getGame().getTeamManager().getUpgrade(player, getUpgrade());
+	    
+	    for(Player p : Main.plugin.getGame().getTeamManager().getTeam(player)) {
+		for(PermanentBedwarsItem permanentItem : Main.plugin.getGame().getTeamManager().getPlayerData(player).permanentItems) {
+		    if(swords.contains(permanentItem.getItem().getType())) {
+			permanentItem.getItem().addEnchantment(Enchantment.DAMAGE_ALL, level);
+		    }
+		}
+		
+		for(ItemStack item : p.getInventory()) {
+		    if(swords.contains(item.getType())) {
+			item.addEnchantment(Enchantment.DAMAGE_ALL, level);
+		    }
 		}
 	    }
 	}
-	
-	return true;
     }
-
+    
+    public void registerListeners() {
+	EventHandler eventHandler = Main.plugin.getEventHandler();
+	
+	eventHandler.addListener(new ItemBuyListener() {
+	    
+	    @Override
+	    public boolean onEvent(Event e) {
+		ItemBuyEvent event = (ItemBuyEvent) e;
+		
+		if(swords.contains(event.getItem().getItem().getType())) {
+		    event.getItem().getItem().addEnchantment(Enchantment.DAMAGE_ALL, Main.plugin.getGame().getTeamManager().getUpgrade(event.getPlayer(), getUpgrade()));
+		    return true;
+		}
+		
+		return true;
+	    }
+	    
+	});
+    }
 }

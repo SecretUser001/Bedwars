@@ -13,7 +13,7 @@ public class FoodHandler implements Listener {
     public void onFood(FoodLevelChangeEvent event) {
 	if (event.getEntity() instanceof Player) {
 	    Player player = (Player) event.getEntity();
-	    if (Main.plugin.game.teamManager.playerData.keySet().contains(player)) {
+	    if (Main.plugin.getGame().getTeamManager().playerData.keySet().contains(player)) {
 		event.setCancelled(true);
 	    }
 	}

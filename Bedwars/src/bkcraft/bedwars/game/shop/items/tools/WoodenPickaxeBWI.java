@@ -66,7 +66,7 @@ public class WoodenPickaxeBWI implements PermanentBedwarsItem {
 	
 	Shop.buy(player, this);
 	
-	Main.plugin.game.teamManager.playerData.get(player).upgradebleItems.put(pickaxe.getItemName(), pickaxe);
+	Main.plugin.getGame().getTeamManager().getPlayerData(player).upgradebleItems.put(pickaxe.getItemName(), pickaxe);
 	pickaxe.bought = true;
 	
 	respawn(player);

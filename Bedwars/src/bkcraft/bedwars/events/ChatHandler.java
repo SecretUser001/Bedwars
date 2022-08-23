@@ -13,7 +13,7 @@ public class ChatHandler implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
-	TeamManager teamManager = Main.plugin.game.teamManager;
+	TeamManager teamManager = Main.plugin.getGame().getTeamManager();
 	if (teamManager.getPlayer().contains(event.getPlayer())) {
 	    for (Player player : teamManager.playerData.keySet()) {
 		player.sendMessage(teamManager.playerData.get(event.getPlayer()).team.getPrefix() + event.getPlayer().getName()

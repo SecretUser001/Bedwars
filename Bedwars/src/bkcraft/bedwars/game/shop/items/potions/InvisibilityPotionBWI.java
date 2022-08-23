@@ -48,7 +48,7 @@ public class InvisibilityPotionBWI implements BedwarsItem, Listener {
 		public void run() {
 		    for (Entry<Player, Long> entry : drunkPotion.entrySet()) {
 			if (System.currentTimeMillis() - entry.getValue() > 30 * 1000) {
-			    Main.plugin.game.teamManager.playerData.get(entry.getKey()).armor.giveArmor(entry.getKey());
+			    Main.plugin.getGame().getTeamManager().getPlayerData(entry.getKey()).armor.giveArmor(entry.getKey());
 			    drunkPotion.remove(entry.getKey());
 			}
 		    }
@@ -99,7 +99,7 @@ public class InvisibilityPotionBWI implements BedwarsItem, Listener {
 	Player player = (Player) event.getEntity();
 
 	if (drunkPotion.containsKey(player)) {
-	    Main.plugin.game.teamManager.playerData.get(player).armor.giveArmor(player);
+	    Main.plugin.getGame().getTeamManager().getPlayerData(player).armor.giveArmor(player);
 	    drunkPotion.remove(player);
 	    event.setDamage(0);
 	}

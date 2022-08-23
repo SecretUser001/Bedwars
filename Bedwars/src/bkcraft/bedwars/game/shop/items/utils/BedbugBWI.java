@@ -72,7 +72,7 @@ public class BedbugBWI implements BedwarsItem, Listener {
 	if (event.getEntityType() == EntityType.SNOWBALL) {
 	    Silverfish silverfish = event.getEntity().getWorld().spawn(event.getEntity().getLocation(),
 		    Silverfish.class);
-	    silverfish.setCustomName(Main.plugin.game.teamManager.playerData
+	    silverfish.setCustomName(Main.plugin.getGame().getTeamManager().playerData
 		    .get((Player) event.getEntity().getShooter()).getTeam().toString());
 	}
     }
@@ -87,7 +87,7 @@ public class BedbugBWI implements BedwarsItem, Listener {
 	    return;
 	}
 
-	if (Team.valueOf(event.getEntity().getName()) == Main.plugin.game.teamManager.playerData
+	if (Team.valueOf(event.getEntity().getName()) == Main.plugin.getGame().getTeamManager().playerData
 		.get((Player) event.getTarget()).getTeam()) {
 	    event.setCancelled(true);
 	}

@@ -74,7 +74,7 @@ public class BridgeeggBWI implements BedwarsItem, Listener {
 	Egg egg = (Egg) event.getEntity();
 	Long thrown = System.currentTimeMillis();
 
-	DyeColor color = Main.plugin.game.teamManager.playerData.get((Player) event.getEntity().getShooter()).getTeam()
+	DyeColor color = Main.plugin.getGame().getTeamManager().getPlayerData((Player) event.getEntity().getShooter()).getTeam()
 		.getDyeColor();
 
 	BukkitRunnable eggTimer = new BukkitRunnable() {
@@ -118,7 +118,7 @@ public class BridgeeggBWI implements BedwarsItem, Listener {
 			    eggLocations.add(eggLocation.clone().add(1, 0, -1));
 
 			for (Location location : eggLocations) {
-			    if (!Main.plugin.game.bedwarsMap.isMap(eggLocation)) {
+			    if (!Main.plugin.getGame().getBedwarsMap().isMap(eggLocation)) {
 				if (location.getBlock().getType() == Material.AIR) {
 				    location.getBlock().setType(Material.WOOL);
 				    location.getBlock().setData(color.getData());

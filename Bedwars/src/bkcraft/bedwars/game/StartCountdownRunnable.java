@@ -25,7 +25,7 @@ public class StartCountdownRunnable extends BukkitRunnable {
 	}
 
 	if (this.countdown == 10 || this.countdown <= 5) {
-	    for (Player player : this.game.teamManager.getPlayer()) {
+	    for (Player player : this.game.getTeamManager().getPlayer()) {
 		player.sendMessage(ChatColor.YELLOW + "The Game starts in " + ChatColor.RED + this.countdown
 			+ ChatColor.YELLOW + " seconds!");
 
