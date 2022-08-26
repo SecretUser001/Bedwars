@@ -19,4 +19,7 @@ public interface BedwarsItem {
     public String getDescription();
 
     public void clicked(Player player);
+    
+    public BedwarsItem clone();
+    
 }

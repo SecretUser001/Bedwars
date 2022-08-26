@@ -51,4 +51,8 @@ public class EnderpearlBWI implements BedwarsItem {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}
     }
+    
+    public EnderpearlBWI clone() {
+	return new EnderpearlBWI();
+    }
 }

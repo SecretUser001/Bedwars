@@ -9,7 +9,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 
-import bkcraft.bedwars.game.shop.GUI.Category;
 import bkcraft.bedwars.game.shop.GUI.GUI;
 
 public class InventoryHandler implements Listener {
@@ -30,8 +29,7 @@ public class InventoryHandler implements Listener {
 		event.getWhoClicked().getWorld().playSound(event.getWhoClicked().getLocation(), Sound.ORB_PICKUP, .5f,
 			1f);
 		if (event.getSlot() < 9) {
-		    GUI.openShop(player, Category
-			    .valueOf(event.getInventory().getItem(event.getSlot()).getItemMeta().getDisplayName()));
+		    GUI.openShop(player, GUI.getCategory(event.getSlot()));
 		} else if (GUI.shopItemSlots.contains(event.getSlot())) {
 		    GUI.shopSlotNumbers.get(GUI.openCategory.get(player)).get(event.getSlot()).clicked(player);
 		    GUI.refresh(player);
@@ -47,6 +45,8 @@ public class InventoryHandler implements Listener {
 		    GUI.upgradesSlotNumbers.get(event.getSlot()).clicked(player);
 		}
 	    }
+	    
+	    GUI.openUpgrades(player);
 	    
 	} else if (event.getSlotType() == SlotType.ARMOR) {
 	    event.setCancelled(true);

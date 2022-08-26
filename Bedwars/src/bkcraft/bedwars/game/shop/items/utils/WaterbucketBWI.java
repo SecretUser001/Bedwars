@@ -59,4 +59,8 @@ public class WaterbucketBWI implements BedwarsItem, Listener {
     public void onBucketEmpthy(PlayerBucketEmptyEvent event) {
 	event.getPlayer().getInventory().remove(event.getItemStack());
     }
+    
+    public WaterbucketBWI clone() {
+	return new WaterbucketBWI();
+    }
 }

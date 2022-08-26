@@ -55,4 +55,8 @@ public class WoolBWI implements BedwarsItem {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}
     }
+    
+    public WoolBWI clone() {
+	return new WoolBWI();
+    }
 }

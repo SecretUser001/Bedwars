@@ -1,11 +1,14 @@
 package bkcraft.bedwars.game.shop.items.armor;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
+import bkcraft.bedwars.Main;
 import bkcraft.bedwars.game.Team;
+import bkcraft.bedwars.game.shop.upgrades.TeamUpgrade;
 
 public class LeatherArmor implements Armor {
 
@@ -23,6 +26,15 @@ public class LeatherArmor implements Armor {
 	chestplate.setItemMeta(meta);
 	leggings.setItemMeta(meta);
 	boots.setItemMeta(meta);
+
+	int level = Main.plugin.getGame().getTeamManager().getUpgrade(team, TeamUpgrade.PROTECTION);
+
+	if (level > 0) {
+	    getBoots().addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, level);
+	    getLeggings().addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, level);
+	    getChestplate().addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, level);
+	    getHelmet().addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, level);
+	}
     }
 
     @Override

@@ -5,8 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import bkcraft.bedwars.Main;
-import bkcraft.bedwars.events.bedwarsevents.ItemBuyEvent;
-import bkcraft.bedwars.events.bedwarsevents.TeamUpgradeEvent;
+import bkcraft.bedwars.events.bedwarsevents.events.ItemBuyEvent;
+import bkcraft.bedwars.events.bedwarsevents.events.TeamUpgradeEvent;
 import bkcraft.bedwars.game.shop.items.BedwarsItem;
 import bkcraft.bedwars.game.shop.upgrades.Upgrade;
 
@@ -21,7 +21,7 @@ public class Shop {
 	    return false;
 	}
 
-	if (!Main.plugin.getEventHandler().call(new ItemBuyEvent(player, bedwarsItem))) {
+	if (Main.plugin.getEventHandler().call(new ItemBuyEvent(player, bedwarsItem))) {
 	    removeCurrency(player, bedwarsItem.getCost());
 	    return true;
 	}
@@ -41,7 +41,7 @@ public class Shop {
 	
 	int level = Main.plugin.getGame().getTeamManager().getUpgrade(player, upgrade.getUpgrade());
 	
-	if(!Main.plugin.getEventHandler().call(new TeamUpgradeEvent(player, upgrade.getUpgrade()))) {
+	if(Main.plugin.getEventHandler().call(new TeamUpgradeEvent(player, upgrade.getUpgrade()))) {
 	    removeCurrency(player, upgrade.getCost(level + 1));
 	    
 	    Main.plugin.getGame().getTeamManager().setUpgradeLevel(player, upgrade.getUpgrade(), level + 1);

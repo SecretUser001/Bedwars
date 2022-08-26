@@ -131,4 +131,8 @@ public class FireballBWI implements BedwarsItem, Listener {
 	    }
 	}.runTaskLater(Main.plugin, 3);
     }
+    
+    public FireballBWI clone() {
+	return new FireballBWI();
+    }
 }

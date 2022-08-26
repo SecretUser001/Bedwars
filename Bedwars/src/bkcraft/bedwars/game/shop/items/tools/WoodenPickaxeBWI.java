@@ -76,4 +76,8 @@ public class WoodenPickaxeBWI implements PermanentBedwarsItem {
     public void respawn(Player player) {
 	player.getInventory().addItem(getItem());
     }
+    
+    public WoodenPickaxeBWI clone() {
+	return new WoodenPickaxeBWI(this.pickaxe);
+    }
 }

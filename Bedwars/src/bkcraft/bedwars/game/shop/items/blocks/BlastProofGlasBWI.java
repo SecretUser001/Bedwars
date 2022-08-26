@@ -77,4 +77,8 @@ public class BlastProofGlasBWI implements BedwarsItem, Listener {
 	}
     }
 
+    public BlastProofGlasBWI clone() {
+	return new BlastProofGlasBWI();
+    }
+    
 }

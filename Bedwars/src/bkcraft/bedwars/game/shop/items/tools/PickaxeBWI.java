@@ -85,4 +85,8 @@ public class PickaxeBWI implements UpgradebleBedwarsItem {
     public void clicked(Player player) {
 	upgrades.get(getNextUpgrade()).clicked(player);
     }
+    
+    public PickaxeBWI clone() {
+	return new PickaxeBWI();
+    }
 }

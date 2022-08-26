@@ -21,15 +21,19 @@ public class TeamManager {
 	    Arrays.asList(Team.BLUE, Team.YELLOW, Team.RED, Team.GREEN));
     public HashMap<Team, Boolean> beds;
     public Set<Team> teams;
-    
+
     private HashMap<Team, HashMap<TeamUpgrade, Integer>> upgrades;
-    
+
     public TeamManager(int teamCount) {
 	this.teamCount = teamCount;
 	this.playerData = new HashMap<Player, PlayerData>();
 	this.beds = new HashMap<Team, Boolean>();
 	this.teams = new HashSet<Team>();
 	this.upgrades = new HashMap<Team, HashMap<TeamUpgrade, Integer>>();
+
+	for (Team team : TEAM_ORDER.subList(0, this.teamCount)) {
+	    this.upgrades.put(team, new HashMap<TeamUpgrade, Integer>());
+	}
     }
 
     public void addPlayer(Player player) {
@@ -48,7 +52,7 @@ public class TeamManager {
 	Collections.shuffle(players);
 
 	while (!players.isEmpty()) {
-	    for (Team team : TEAM_ORDER.subList(0, this.teamCount - 1)) {
+	    for (Team team : TEAM_ORDER.subList(0, this.teamCount)) {
 		if (!players.isEmpty()) {
 		    this.playerData.get(players.get(0)).setTeam(team);
 		    this.teams.add(team);
@@ -56,8 +60,8 @@ public class TeamManager {
 		}
 	    }
 	}
-	
-	for(Team team : this.teams) {
+
+	for (Team team : this.teams) {
 	    this.upgrades.put(team, new HashMap<TeamUpgrade, Integer>());
 	}
     }
@@ -94,40 +98,36 @@ public class TeamManager {
     public void removeBed(Team team) {
 	this.beds.put(team, false);
     }
-    
+
     public int getUpgrade(Team team, TeamUpgrade upgrade) {
-	return this.upgrades.get(team).get(upgrade);
-    }
-    
-    public int getUpgrade(Player player, TeamUpgrade upgrade) {
-	Team team = this.playerData.get(player).team;
-	
-	if(!this.upgrades.get(team).containsKey(upgrade)) {
+	if (!this.upgrades.get(team).containsKey(upgrade)) {
 	    this.upgrades.get(team).put(upgrade, 0);
 	}
-	
+
+	return this.upgrades.get(team).get(upgrade);
+    }
+
+    public int getUpgrade(Player player, TeamUpgrade upgrade) {
+	Team team = this.playerData.get(player).team;
+
+	if (!this.upgrades.get(team).containsKey(upgrade)) {
+	    this.upgrades.get(team).put(upgrade, 0);
+	}
+
 	return this.upgrades.get(this.playerData.get(player).team).get(upgrade);
     }
-    
+
     public void setUpgradeLevel(Team team, TeamUpgrade upgrade, int level) {
+	Bukkit.broadcastMessage("SET UPGRADE: " + team.toString() + " " + upgrade.toString() + " " + level);
 	this.upgrades.get(team).put(upgrade, level);
     }
-    
+
     public void setUpgradeLevel(Player player, TeamUpgrade upgrade, int level) {
-	Bukkit.broadcastMessage("TEAMS: ");
-	for(Team team : this.teams) {
-	    Bukkit.broadcastMessage(team.toString());
-	}
-	
-	Bukkit.broadcastMessage("");
-	
-	Bukkit.broadcastMessage(this.playerData.get(player).team.toString());
-	
 	this.upgrades.get(this.playerData.get(player).team).put(upgrade, level);
     }
-    
+
     public PlayerData getPlayerData(Player player) {
 	return this.playerData.get(player);
     }
-    
+
 }

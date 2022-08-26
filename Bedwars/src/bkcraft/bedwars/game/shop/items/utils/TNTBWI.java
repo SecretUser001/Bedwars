@@ -114,4 +114,8 @@ public class TNTBWI implements BedwarsItem, Listener {
 	    event.setDamage(0.0);
 	}
     }
+    
+    public TNTBWI clone() {
+	return new TNTBWI();
+    }
 }

@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import org.bukkit.entity.Player;
 
+import bkcraft.bedwars.Main;
+import bkcraft.bedwars.events.bedwarsevents.events.ArmorChangeEvent;
 import bkcraft.bedwars.game.shop.items.PermanentBedwarsItem;
 import bkcraft.bedwars.game.shop.items.UpgradebleBedwarsItem;
 import bkcraft.bedwars.game.shop.items.armor.Armor;
@@ -15,7 +17,7 @@ public class PlayerData {
 
     public Player player;
     public Team team;
-    public Armor armor;
+    private Armor armor;
     public ArrayList<PermanentBedwarsItem> permanentItems;
     public HashMap<String, UpgradebleBedwarsItem> upgradebleItems;
     public boolean dead;
@@ -25,7 +27,7 @@ public class PlayerData {
 	this.team = Team.NONE;
 	this.permanentItems = new ArrayList<PermanentBedwarsItem>();
 	this.upgradebleItems = new HashMap<String, UpgradebleBedwarsItem>();
-	
+
 	this.permanentItems.add(new WoodenSwordBWI());
     }
 
@@ -34,13 +36,16 @@ public class PlayerData {
 	this.team = team;
 	this.permanentItems = new ArrayList<PermanentBedwarsItem>();
 	this.upgradebleItems = new HashMap<String, UpgradebleBedwarsItem>();
-	
+
 	this.permanentItems.add(new WoodenSwordBWI());
     }
 
     public void setTeam(Team team) {
 	this.team = team;
-	this.armor = new LeatherArmor(team);
+
+	if (team != Team.NONE) {
+	    this.setArmor(new LeatherArmor(team));
+	}
     }
 
     public Team getTeam() {
@@ -53,5 +58,15 @@ public class PlayerData {
 	    return true;
 	}
 	return false;
+    }
+
+    public void setArmor(Armor armor) {
+	if (Main.plugin.getEventHandler().call(new ArmorChangeEvent(player, this.armor, armor))) {
+	    this.armor = armor;
+	}
+    }
+
+    public Armor getArmor() {
+	return this.armor;
     }
 }

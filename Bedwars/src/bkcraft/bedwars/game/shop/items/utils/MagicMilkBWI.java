@@ -61,4 +61,8 @@ public class MagicMilkBWI implements BedwarsItem, Listener {
 	    event.getPlayer().getInventory().remove(event.getItem());
 	}
     }
+    
+    public MagicMilkBWI clone() {
+	return new MagicMilkBWI();
+    }
 }

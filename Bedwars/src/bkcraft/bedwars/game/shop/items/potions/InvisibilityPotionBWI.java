@@ -29,7 +29,7 @@ public class InvisibilityPotionBWI implements BedwarsItem, Listener {
     public static ItemStack item = new ItemStack(Material.POTION, 1);
     public static String displayName = "Invisibility Potion (30 seconds)";
     public static Category category = Category.Potions;
-    public static String description = "";
+    public static String description = "Complete Invisibility (0:30).";
     public static Currency cost = new Currency(0, 0, 0, 2);
 
     public static HashMap<Player, Long> drunkPotion = new HashMap<Player, Long>();
@@ -48,7 +48,7 @@ public class InvisibilityPotionBWI implements BedwarsItem, Listener {
 		public void run() {
 		    for (Entry<Player, Long> entry : drunkPotion.entrySet()) {
 			if (System.currentTimeMillis() - entry.getValue() > 30 * 1000) {
-			    Main.plugin.getGame().getTeamManager().getPlayerData(entry.getKey()).armor.giveArmor(entry.getKey());
+			    Main.plugin.getGame().getTeamManager().getPlayerData(entry.getKey()).getArmor().giveArmor(entry.getKey());
 			    drunkPotion.remove(entry.getKey());
 			}
 		    }
@@ -99,7 +99,7 @@ public class InvisibilityPotionBWI implements BedwarsItem, Listener {
 	Player player = (Player) event.getEntity();
 
 	if (drunkPotion.containsKey(player)) {
-	    Main.plugin.getGame().getTeamManager().getPlayerData(player).armor.giveArmor(player);
+	    Main.plugin.getGame().getTeamManager().getPlayerData(player).getArmor().giveArmor(player);
 	    drunkPotion.remove(player);
 	    event.setDamage(0);
 	}
@@ -136,5 +136,9 @@ public class InvisibilityPotionBWI implements BedwarsItem, Listener {
 
 	Bukkit.broadcastMessage("pevent ra");
 
+    }
+    
+    public InvisibilityPotionBWI clone() {
+	return new InvisibilityPotionBWI();
     }
 }

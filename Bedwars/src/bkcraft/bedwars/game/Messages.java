@@ -27,6 +27,11 @@ public class Messages {
     
     public static List<String> splitString(String string, ChatColor chatColor) {
 	List<String> returnList = new ArrayList<String>();
+	
+	if(string == "") {
+	    return returnList;
+	}
+	
 	ArrayList<String> words = new ArrayList<String>(Arrays.asList(string.split(" ")));
 	
 	String line = chatColor + words.get(0);

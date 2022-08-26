@@ -51,5 +51,9 @@ public class ObsidianBWI implements BedwarsItem{
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}
     }
+    
+    public ObsidianBWI clone() {
+	return new ObsidianBWI();
+    }
 
 }

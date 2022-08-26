@@ -51,4 +51,8 @@ public class GoldenAppleBWI implements BedwarsItem {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}
     }
+    
+    public GoldenAppleBWI clone() {
+	return new GoldenAppleBWI();
+    }
 }

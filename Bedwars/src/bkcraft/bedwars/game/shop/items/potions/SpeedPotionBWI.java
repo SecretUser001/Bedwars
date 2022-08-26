@@ -18,7 +18,7 @@ public class SpeedPotionBWI implements BedwarsItem{
     public static ItemStack item = new ItemStack(Material.POTION, 1);
     public static String displayName = "Speed II Potion (45 seconds)";
     public static Category category = Category.Potions;
-    public static String description = "";
+    public static String description = "Speed II (0:45).";
     public static Currency cost = new Currency(0, 0, 0, 1);
 
     public SpeedPotionBWI() {
@@ -60,6 +60,10 @@ public class SpeedPotionBWI implements BedwarsItem{
 	} else {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}
+    }
+    
+    public SpeedPotionBWI clone() {
+	return new SpeedPotionBWI();
     }
     
 }

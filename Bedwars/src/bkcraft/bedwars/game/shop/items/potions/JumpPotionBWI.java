@@ -18,7 +18,7 @@ public class JumpPotionBWI implements BedwarsItem{
     public static ItemStack item = new ItemStack(Material.POTION, 1);
     public static String displayName = "Jump V Potion (45 seconds)";
     public static Category category = Category.Potions;
-    public static String description = "";
+    public static String description = "Jump Boost V (0:45).";
     public static Currency cost = new Currency(0, 0, 0, 1);
 
     public JumpPotionBWI() {
@@ -60,6 +60,10 @@ public class JumpPotionBWI implements BedwarsItem{
 	} else {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}
+    }
+    
+    public JumpPotionBWI clone() {
+	return new JumpPotionBWI();
     }
     
 }

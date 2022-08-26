@@ -1,20 +1,21 @@
-package bkcraft.bedwars.events.bedwarsevents;
+package bkcraft.bedwars.events.bedwarsevents.events;
 
 import org.bukkit.entity.Player;
 
 import bkcraft.bedwars.game.shop.items.BedwarsItem;
 
-public class PlayerRespawnEvent implements Event {
+public class ShopItemPreprocessEvent implements Event {
 
     private boolean cancelled;
 
     private Player player;
     private BedwarsItem item;
 
-    public PlayerRespawnEvent(Player player) {
+    public ShopItemPreprocessEvent(Player player, BedwarsItem item) {
 	this.cancelled = false;
 
 	this.player = player;
+	this.item = item;
     }
 
     @Override
@@ -28,7 +29,7 @@ public class PlayerRespawnEvent implements Event {
     }
 
     public EventType getEventType() {
-	return EventType.ITEM_BUY_EVENT;
+	return EventType.SHOP_ITEM_PREPROCESS_EVENT;
     }
 
     public Player getPlayer() {

@@ -15,11 +15,13 @@ public interface Upgrade {
     
     public String getDescription();
         
+    public String getTierDescription();
+    
     public Integer getMaxUpgrade();
     
     public TeamUpgrade getUpgrade();
     
     public void clicked(Player player);
     
-    public void registerListeners();
+    public void registerListeners();    
 }

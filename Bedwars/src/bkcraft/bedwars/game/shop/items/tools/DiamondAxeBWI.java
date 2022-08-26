@@ -90,4 +90,9 @@ public class DiamondAxeBWI implements PermanentBedwarsItem {
 	    }
 	}
     }
+    
+    public DiamondAxeBWI clone() {
+	return new DiamondAxeBWI(this.axe);
+    }
+    
 }

@@ -62,4 +62,8 @@ public class ShearsBWI implements PermanentBedwarsItem {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}
     }
+    
+    public ShearsBWI clone() {
+	return new ShearsBWI();
+    }
 }

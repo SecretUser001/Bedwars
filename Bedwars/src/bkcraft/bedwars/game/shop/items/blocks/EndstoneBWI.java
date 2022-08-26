@@ -51,4 +51,8 @@ public class EndstoneBWI implements BedwarsItem{
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}
     }
+    
+    public EndstoneBWI clone() {
+	return new EndstoneBWI();
+    }
 }

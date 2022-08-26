@@ -12,12 +12,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import bkcraft.bedwars.Main;
-import bkcraft.bedwars.events.bedwarsevents.Event;
 import bkcraft.bedwars.events.bedwarsevents.EventHandler;
-import bkcraft.bedwars.events.bedwarsevents.ItemBuyEvent;
-import bkcraft.bedwars.events.bedwarsevents.ItemBuyListener;
+import bkcraft.bedwars.events.bedwarsevents.events.Event;
+import bkcraft.bedwars.events.bedwarsevents.events.ShopItemPreprocessEvent;
+import bkcraft.bedwars.events.bedwarsevents.listener.ShopItemPreprocessListener;
+import bkcraft.bedwars.game.TeamManager;
 import bkcraft.bedwars.game.shop.Currency;
 import bkcraft.bedwars.game.shop.Shop;
+import bkcraft.bedwars.game.shop.GUI.Category;
 import bkcraft.bedwars.game.shop.items.PermanentBedwarsItem;
 
 public class SharpnessBWU implements Upgrade {
@@ -26,6 +28,7 @@ public class SharpnessBWU implements Upgrade {
     public static TeamUpgrade upgrade;
     public static String name = "Sharpened Swords";
     public static String description = "Your team permanently gains Sharpness I on all swords.";
+    public static String tierDescription = "Sharpness";
     public static Integer maxUpgrade = 2;
     public static ArrayList<Currency> cost = new ArrayList<Currency>(Arrays.asList(new Currency(0, 0, 8, 0), new Currency(0, 0, 16, 0)));
     public static Set<Material> swords = new HashSet<Material>(Arrays.asList(Material.WOOD_SWORD, Material.STONE_SWORD, Material.IRON_SWORD, Material.GOLD_SWORD, Material.DIAMOND_SWORD));
@@ -75,16 +78,22 @@ public class SharpnessBWU implements Upgrade {
 	if(Shop.canUpgrade(player, this)) {
 	    Shop.upgrade(player, this);
 	    
-	    int level = Main.plugin.getGame().getTeamManager().getUpgrade(player, getUpgrade());
+	    TeamManager teamManager = Main.plugin.getGame().getTeamManager();
 	    
-	    for(Player p : Main.plugin.getGame().getTeamManager().getTeam(player)) {
-		for(PermanentBedwarsItem permanentItem : Main.plugin.getGame().getTeamManager().getPlayerData(player).permanentItems) {
+	    int level = teamManager.getUpgrade(player, getUpgrade());
+	    
+	    for(Player p : teamManager.getTeam(player)) {
+		for(PermanentBedwarsItem permanentItem : teamManager.getPlayerData(player).permanentItems) {
 		    if(swords.contains(permanentItem.getItem().getType())) {
 			permanentItem.getItem().addEnchantment(Enchantment.DAMAGE_ALL, level);
 		    }
 		}
 		
 		for(ItemStack item : p.getInventory()) {
+		    if(item == null) {
+			continue;
+		    }
+		    
 		    if(swords.contains(item.getType())) {
 			item.addEnchantment(Enchantment.DAMAGE_ALL, level);
 		    }
@@ -96,14 +105,16 @@ public class SharpnessBWU implements Upgrade {
     public void registerListeners() {
 	EventHandler eventHandler = Main.plugin.getEventHandler();
 	
-	eventHandler.addListener(new ItemBuyListener() {
+	eventHandler.addListener(new ShopItemPreprocessListener() {
 	    
 	    @Override
 	    public boolean onEvent(Event e) {
-		ItemBuyEvent event = (ItemBuyEvent) e;
+		ShopItemPreprocessEvent event = (ShopItemPreprocessEvent) e;
 		
-		if(swords.contains(event.getItem().getItem().getType())) {
-		    event.getItem().getItem().addEnchantment(Enchantment.DAMAGE_ALL, Main.plugin.getGame().getTeamManager().getUpgrade(event.getPlayer(), getUpgrade()));
+		int level = Main.plugin.getGame().getTeamManager().getUpgrade(event.getPlayer(), getUpgrade());
+		
+		if(level > 0 && event.getItem().getCategory() == Category.Melee) {
+		    event.getItem().getItem().addUnsafeEnchantment(Enchantment.DAMAGE_ALL, level);
 		    return true;
 		}
 		
@@ -111,5 +122,9 @@ public class SharpnessBWU implements Upgrade {
 	    }
 	    
 	});
+    }
+    
+    public String getTierDescription() {
+	return tierDescription;
     }
 }

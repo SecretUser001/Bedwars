@@ -62,4 +62,8 @@ public class DreamDefenderBWI implements BedwarsItem, Listener {
 	}
     }
 
+    public DreamDefenderBWI clone() {
+	return new DreamDefenderBWI();
+    }
+    
 }

@@ -90,4 +90,8 @@ public class DiamondPickaxeBWI implements PermanentBedwarsItem {
 	    }
 	}
     }
+    
+    public DiamondPickaxeBWI clone() {
+	return new DiamondPickaxeBWI(this.pickaxe);
+    }
 }

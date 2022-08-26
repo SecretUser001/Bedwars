@@ -51,4 +51,8 @@ public class StoneSwordBWI implements BedwarsItem {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}
     }
+    
+    public StoneSwordBWI clone() {
+	return new StoneSwordBWI();
+    }
 }

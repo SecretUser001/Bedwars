@@ -16,9 +16,9 @@ import bkcraft.bedwars.events.InventoryHandler;
 import bkcraft.bedwars.events.ItemDropHandler;
 import bkcraft.bedwars.events.JoinHandler;
 import bkcraft.bedwars.events.VillagerHandler;
+import bkcraft.bedwars.events.WeatherHadler;
 import bkcraft.bedwars.events.bedwarsevents.EventHandler;
 import bkcraft.bedwars.game.Game;
-import bkcraft.bedwars.game.shop.items.melee.TemplateItemBWI;
 import bkcraft.bedwars.game.shop.items.potions.InvisibilityPotionBWI;
 import bkcraft.bedwars.game.shop.items.utils.BedbugBWI;
 import bkcraft.bedwars.game.shop.items.utils.BridgeeggBWI;
@@ -56,9 +56,8 @@ public class Main extends JavaPlugin {
 	this.getServer().getPluginManager().registerEvents(new VillagerHandler(), this);
 	this.getServer().getPluginManager().registerEvents(new InventoryHandler(), this);
 	this.getServer().getPluginManager().registerEvents(new ItemDropHandler(), this);
+	this.getServer().getPluginManager().registerEvents(new WeatherHadler(), this);
 	
-	this.getServer().getPluginManager().registerEvents(new TemplateItemBWI(), this);
-
 	this.getServer().getPluginManager().registerEvents(new InvisibilityPotionBWI(), this);
 
 	this.getServer().getPluginManager().registerEvents(new BedbugBWI(), this);

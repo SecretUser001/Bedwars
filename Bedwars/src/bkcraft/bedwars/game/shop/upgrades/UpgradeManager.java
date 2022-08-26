@@ -10,6 +10,7 @@ public class UpgradeManager {
 	this.upgrades = new HashMap<>();
 	
 	this.upgrades.put(TeamUpgrade.SHARPNESS, new SharpnessBWU());
+	this.upgrades.put(TeamUpgrade.PROTECTION, new ProtectionBWU());
     }
     
     public HashMap<TeamUpgrade, Upgrade> getUpgrades() {

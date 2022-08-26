@@ -92,4 +92,8 @@ public class BedbugBWI implements BedwarsItem, Listener {
 	    event.setCancelled(true);
 	}
     }
+    
+    public BedbugBWI clone() {
+	return new BedbugBWI();
+    }
 }

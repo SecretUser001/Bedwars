@@ -90,4 +90,8 @@ public class StoneAxeBWI implements PermanentBedwarsItem {
 	    }
 	}
     }
+    
+    public StoneAxeBWI clone() {
+	return new StoneAxeBWI(this.axe);
+    }
 }

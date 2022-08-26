@@ -131,4 +131,8 @@ public class BridgeeggBWI implements BedwarsItem, Listener {
 	};
 	eggTimer.runTaskTimer(Main.plugin, 1L, 1L);
     }
+    
+    public BridgeeggBWI clone() {
+	return new BridgeeggBWI();
+    }
 }

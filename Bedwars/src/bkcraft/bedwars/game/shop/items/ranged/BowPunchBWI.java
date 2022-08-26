@@ -12,7 +12,7 @@ import bkcraft.bedwars.game.shop.Shop;
 import bkcraft.bedwars.game.shop.GUI.Category;
 import bkcraft.bedwars.game.shop.items.BedwarsItem;
 
-public class BowPunchBWI implements BedwarsItem{
+public class BowPunchBWI implements BedwarsItem {
 
     public static ItemStack item = new ItemStack(Material.BOW, 1);
     public static String displayName = "Bow";
@@ -26,7 +26,7 @@ public class BowPunchBWI implements BedwarsItem{
 	meta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, false);
 	item.setItemMeta(meta);
     }
-    
+
     @Override
     public ItemStack getItem() {
 	return item;
@@ -36,12 +36,12 @@ public class BowPunchBWI implements BedwarsItem{
     public String getName() {
 	return displayName;
     }
-    
+
     @Override
     public Category getCategory() {
 	return category;
     }
-    
+
     @Override
     public String getDescription() {
 	return description;
@@ -60,5 +60,8 @@ public class BowPunchBWI implements BedwarsItem{
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}
     }
-    
+
+    public BowPunchBWI clone() {
+	return new BowPunchBWI();
+    }
 }

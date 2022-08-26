@@ -86,4 +86,8 @@ public class AxeBWI implements UpgradebleBedwarsItem {
     public void clicked(Player player) {
 	upgrades.get(getNextUpgrade()).clicked(player);
     }
+    
+    public AxeBWI clone() {
+	return new AxeBWI();
+    }
 }

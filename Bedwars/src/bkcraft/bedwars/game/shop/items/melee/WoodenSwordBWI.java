@@ -63,4 +63,8 @@ public class WoodenSwordBWI implements PermanentBedwarsItem{
 	}
     }
     
+    public WoodenSwordBWI clone() {
+	return new WoodenSwordBWI();
+    }
+    
 }

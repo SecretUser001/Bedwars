@@ -60,4 +60,8 @@ public class KnockbackStickBWI implements BedwarsItem {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}
     }
+    
+    public KnockbackStickBWI clone() {
+	return new KnockbackStickBWI();
+    }
 }

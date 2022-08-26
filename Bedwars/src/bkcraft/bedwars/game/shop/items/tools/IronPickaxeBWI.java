@@ -90,4 +90,8 @@ public class IronPickaxeBWI implements PermanentBedwarsItem {
 	    }
 	}
     }
+    
+    public IronPickaxeBWI clone() {
+	return new IronPickaxeBWI(this.pickaxe);
+    }
 }

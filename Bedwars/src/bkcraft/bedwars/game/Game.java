@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import bkcraft.bedwars.Main;
+import bkcraft.bedwars.events.bedwarsevents.events.PlayerRespawnEvent;
 import bkcraft.bedwars.game.shop.items.PermanentBedwarsItem;
 import bkcraft.bedwars.game.shop.items.UpgradebleBedwarsItem;
 import bkcraft.bedwars.game.shop.upgrades.UpgradeManager;
@@ -37,7 +38,12 @@ public class Game {
 	if (!started) {
 	    player.getEnderChest().clear();
 	    player.getInventory().clear();
-
+	    
+	    player.getInventory().setHelmet(null);
+	    player.getInventory().setChestplate(null);
+	    player.getInventory().setLeggings(null);
+	    player.getInventory().setBoots(null);
+	    
 	    player.setHealth(20d);
 	    player.setSaturation(20f);
 	    player.setVelocity(new Vector(0, 0, 0));
@@ -115,7 +121,7 @@ public class Game {
 	player.getInventory().clear();
 	player.getActivePotionEffects().clear();
 	
-	data.armor.giveArmor(player);
+	data.getArmor().giveArmor(player);
 
 	for (PermanentBedwarsItem item : this.teamManager.playerData.get(player).permanentItems) {
 	    item.respawn(player);
@@ -124,6 +130,8 @@ public class Game {
 	for (UpgradebleBedwarsItem item : this.teamManager.playerData.get(player).upgradebleItems.values()) {
 	    item.respawn(player);
 	}
+	
+	Main.plugin.getEventHandler().call(new PlayerRespawnEvent(player));
     }
 
     public BedwarsMap getBedwarsMap() {

@@ -60,4 +60,8 @@ public class BowPowerBWI implements BedwarsItem{
 	}
     }
     
+    public BowPowerBWI clone() {
+	return new BowPowerBWI();
+    }
+    
 }

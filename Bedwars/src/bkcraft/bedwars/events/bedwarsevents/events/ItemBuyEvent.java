@@ -1,4 +1,4 @@
-package bkcraft.bedwars.events.bedwarsevents;
+package bkcraft.bedwars.events.bedwarsevents.events;
 
 import org.bukkit.entity.Player;
 

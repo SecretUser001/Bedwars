@@ -76,4 +76,8 @@ public class WoodenAxeBWI implements PermanentBedwarsItem {
     public void respawn(Player player) {
 	player.getInventory().addItem(getItem());
     }
+    
+    public WoodenAxeBWI clone() {
+	return new WoodenAxeBWI(this.axe);
+    }
 }

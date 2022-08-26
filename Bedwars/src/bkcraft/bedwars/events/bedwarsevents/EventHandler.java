@@ -3,6 +3,10 @@ package bkcraft.bedwars.events.bedwarsevents;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import bkcraft.bedwars.events.bedwarsevents.events.Event;
+import bkcraft.bedwars.events.bedwarsevents.events.EventType;
+import bkcraft.bedwars.events.bedwarsevents.listener.Listener;
+
 public class EventHandler {
 
     private HashMap<EventType, ArrayList<Listener>> listeners;
@@ -30,6 +34,6 @@ public class EventHandler {
 	    listener.onEvent(event);
 	}
 	
-	return event.isCancelled();
+	return !event.isCancelled();
     }
 }

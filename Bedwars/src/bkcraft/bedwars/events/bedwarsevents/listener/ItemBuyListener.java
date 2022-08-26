@@ -1,4 +1,7 @@
-package bkcraft.bedwars.events.bedwarsevents;
+package bkcraft.bedwars.events.bedwarsevents.listener;
+
+import bkcraft.bedwars.events.bedwarsevents.events.Event;
+import bkcraft.bedwars.events.bedwarsevents.events.EventType;
 
 public class ItemBuyListener implements Listener{
 

@@ -70,4 +70,8 @@ public class SpongeBWI implements BedwarsItem, Listener {
 	}
     }
 
+    public SpongeBWI clone() {
+	return new SpongeBWI();
+    }
+    
 }

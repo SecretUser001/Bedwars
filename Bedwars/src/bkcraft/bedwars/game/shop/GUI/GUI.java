@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import bkcraft.bedwars.Main;
+import bkcraft.bedwars.events.bedwarsevents.events.ShopItemPreprocessEvent;
 import bkcraft.bedwars.game.Messages;
 import bkcraft.bedwars.game.shop.Shop;
 import bkcraft.bedwars.game.shop.items.BedwarsItem;
@@ -31,6 +32,7 @@ public class GUI {
 
     public static ArrayList<Player> openShops = new ArrayList<Player>();
     public static ArrayList<Player> openUpgrades = new ArrayList<Player>();
+    public static HashMap<Integer, Category> categorySlotNumbers = new HashMap<Integer, Category>();
     public static HashMap<Category, HashMap<Integer, BedwarsItem>> shopSlotNumbers = new HashMap<Category, HashMap<Integer, BedwarsItem>>();
     public static HashMap<Integer, Upgrade> upgradesSlotNumbers = new HashMap<>();
     public static HashMap<Player, Category> openCategory = new HashMap<Player, Category>();
@@ -73,10 +75,19 @@ public class GUI {
     public static void fillCategorys(Inventory inventory, Category category) {
 	for (int i = 0; i < 9; i++) {
 	    if (i < Category.values().length) {
+		categorySlotNumbers.put(i, Category.values()[i]);
+		
 		ItemStack item = new ItemStack(Category.values()[i].icon, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(Category.values()[i].name());
+		meta.setDisplayName(ChatColor.GREEN + Category.values()[i].name());
+
+		ArrayList<String> lore = new ArrayList<String>();
+		lore.add(ChatColor.YELLOW + "Click to view!");
+
+		meta.setLore(lore);
+
 		item.setItemMeta(meta);
+
 		inventory.setItem(i, item);
 
 		inventory.setItem(i + 9,
@@ -114,7 +125,11 @@ public class GUI {
 		break;
 	    }
 
-	    BedwarsItem bwItem = items.get(0);
+	    BedwarsItem bwItem = items.get(0).clone();
+
+	    if (!Main.plugin.getEventHandler().call(new ShopItemPreprocessEvent(player, bwItem))) {
+		continue;
+	    }
 
 	    shopSlotNumbers.get(category).put(slot, bwItem);
 
@@ -133,9 +148,14 @@ public class GUI {
 			    ChatColor.RED);
 
 	    ArrayList<String> lore = new ArrayList<String>();
-	    lore.addAll(cost);
 	    lore.add("");
-	    lore.addAll(description);
+	    lore.addAll(cost);
+
+	    if (description.size() > 0) {
+		lore.add("");
+		lore.addAll(description);
+	    }
+
 	    lore.add("");
 	    lore.addAll(canBuy);
 
@@ -173,11 +193,21 @@ public class GUI {
 
 	    List<String> description = Messages.splitString(upgrade.getDescription(), ChatColor.GRAY);
 
-	    List<String> cost = new ArrayList<>(Arrays.asList(ChatColor.GRAY + "Cost: " + ChatColor.WHITE));
+	    List<String> cost;
 
-	    int c = isMaxed ? nextUpgrade - 1 : nextUpgrade;
+	    if (upgrade.getMaxUpgrade() == 1) {
+		cost = new ArrayList<>(Arrays.asList(ChatColor.GRAY + "Cost: " + ChatColor.WHITE));
+		int c = isMaxed ? nextUpgrade - 1 : nextUpgrade;
+		cost.addAll(Messages.splitString(upgrade.getCost(c).toString(), ChatColor.WHITE));
+	    } else {
+		cost = new ArrayList<>();
 
-	    cost.addAll(Messages.splitString(upgrade.getCost(c).toString(), ChatColor.WHITE));
+		for (int i = 1; i <= upgrade.getMaxUpgrade(); i++) {
+		    cost.add(((nextUpgrade - 1) < i ? ChatColor.GRAY : ChatColor.GREEN) + "Tier " + i + ": "
+			    + upgrade.getTierDescription() + " " + i + ", " + ChatColor.AQUA
+			    + upgrade.getCost(i).toString());
+		}
+	    }
 
 	    List<String> canBuy = Messages.splitString(isMaxed ? ChatColor.GREEN + "UNLOCKED"
 		    : Shop.canUpgrade(player, upgrade) ? ChatColor.YELLOW + "Click to purchase!"
@@ -205,4 +235,8 @@ public class GUI {
 	openShop(player, openCategory.get(player));
     }
 
+    public static Category getCategory(int i) {
+	return categorySlotNumbers.get(i);
+    }
+    
 }

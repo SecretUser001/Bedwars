@@ -27,7 +27,7 @@ public class OakWoodPlanksBWI implements BedwarsItem {
     public String getName() {
 	return displayName;
     }
-    
+
     @Override
     public Category getCategory() {
 	return category;
@@ -50,6 +50,10 @@ public class OakWoodPlanksBWI implements BedwarsItem {
 	} else {
 	    player.sendMessage(Messages.CANT_BUY_NO_CURRENCY(Shop.getCurrency(player), cost));
 	}
+    }
+
+    public OakWoodPlanksBWI clone() {
+	return new OakWoodPlanksBWI();
     }
 
 }
