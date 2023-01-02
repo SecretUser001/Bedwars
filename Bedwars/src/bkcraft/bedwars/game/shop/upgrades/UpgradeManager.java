@@ -11,6 +11,7 @@ public class UpgradeManager {
 	
 	this.upgrades.put(TeamUpgrade.SHARPNESS, new SharpnessBWU());
 	this.upgrades.put(TeamUpgrade.PROTECTION, new ProtectionBWU());
+	this.upgrades.put(TeamUpgrade.HASTE, new HasteBWU());
     }
     
     public HashMap<TeamUpgrade, Upgrade> getUpgrades() {

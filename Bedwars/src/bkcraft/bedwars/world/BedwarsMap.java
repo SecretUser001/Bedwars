@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -19,10 +18,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import bkcraft.bedwars.game.Team;
-import bkcraft.bedwars.game.spawner.DiamondSpawner;
-import bkcraft.bedwars.game.spawner.EmeraldSpawner;
-import bkcraft.bedwars.game.spawner.IslandSpawner;
-import bkcraft.bedwars.game.spawner.Spawner;
+import bkcraft.bedwars.game.generator.GeneratorManager;
+import bkcraft.bedwars.game.generator.GeneratorUtils;
 import bkcraft.bedwars.world.schematic.Region;
 import bkcraft.bedwars.world.schematic.SchematicReader;
 
@@ -41,8 +38,7 @@ public class BedwarsMap {
 
     public int TEAM_COUNT;
 
-    public ArrayList<Spawner> spawner;
-    public HashMap<Team, IslandSpawner> islandSpawner;
+    private GeneratorManager generatorManager;
 
     public HashMap<Team, Location> spawns;
     public HashMap<Team, Location[]> beds;
@@ -57,8 +53,7 @@ public class BedwarsMap {
 
 	this.TEAM_COUNT = 0;
 
-	this.spawner = new ArrayList<Spawner>();
-	this.islandSpawner = new HashMap<Team, IslandSpawner>();
+	this.generatorManager = new GeneratorManager();
 
 	this.spawns = new HashMap<Team, Location>();
 	this.beds = new HashMap<Team, Location[]>();
@@ -106,13 +101,13 @@ public class BedwarsMap {
     }
 
     public void addCage() {
-	addSchematic(FilePath.CAGE_SCHEM, CAGE_HEIGHT);
+	addSchematic(FilePaths.CAGE_SCHEM, CAGE_HEIGHT);
     }
 
     public boolean removeCage() {
 	Region region;
 	try {
-	    region = SchematicReader.read(new File(FilePath.CAGE_SCHEM));
+	    region = SchematicReader.read(new File(FilePaths.CAGE_SCHEM));
 	} catch (IOException e) {
 	    e.printStackTrace();
 	    return false;
@@ -147,14 +142,14 @@ public class BedwarsMap {
     }
 
     public void readInformation() {
-	File file = new File(FilePath.MAPS_FOLDER + "/" + this.template + ".txt");
+	File file = new File(FilePaths.MAPS_FOLDER + "/" + this.template + ".txt");
 	BufferedReader reader;
 
 	try {
 	    reader = new BufferedReader(new FileReader(file));
-
+	    
 	    for (String line; (line = reader.readLine()) != null;) {
-		String[] args = line.split(",");
+		String[] args = line.split(";");
 		switch (args[0]) {
 		case "TEAMS":
 		    this.TEAM_COUNT = Integer.parseInt(args[1]);
@@ -162,12 +157,12 @@ public class BedwarsMap {
 		case "SPAWNER":
 		    switch (args[1]) {
 		    case "EMERALD":
-			this.spawner.add(new EmeraldSpawner(new Location(this.world, Integer.parseInt(args[2]),
-				Integer.parseInt(args[3]), Integer.parseInt(args[4]))));
+			this.generatorManager.addEmeraldGenerator(new Location(this.world, Integer.parseInt(args[2]),
+				Integer.parseInt(args[3]), Integer.parseInt(args[4])));
 			break;
 		    case "DIAMOND":
-			this.spawner.add(new DiamondSpawner(new Location(this.world, Integer.parseInt(args[2]),
-				Integer.parseInt(args[3]), Integer.parseInt(args[4]))));
+			this.generatorManager.addDiamondGenerator(new Location(this.world, Integer.parseInt(args[2]),
+				Integer.parseInt(args[3]), Integer.parseInt(args[4])));
 			break;
 		    }
 		}
@@ -184,9 +179,8 @@ public class BedwarsMap {
 			this.spawns.get(team).setYaw(getSpawnDirec(Integer.parseInt(args[2])));
 			break;
 		    case "SPAWNER":
-			this.islandSpawner.put(team, new IslandSpawner(new Location(this.world,
-				Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]))));
-			break;
+			this.generatorManager.addIslandGenerator(team, new Location(this.world, Integer.parseInt(args[2]),
+				Integer.parseInt(args[3]), Integer.parseInt(args[4])));
 		    case "BEDHEAD":
 			if (!this.beds.containsKey(team)) {
 			    this.beds.put(team, new Location[2]);
@@ -228,6 +222,9 @@ public class BedwarsMap {
 
 	    }
 
+	   GeneratorUtils.readFile(this.generatorManager.getSettings(), file);
+	   this.generatorManager.applySettings(); 
+	   
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}
@@ -256,13 +253,7 @@ public class BedwarsMap {
     }
 
     public void startSpawner() {
-	for (Spawner spawner : this.spawner) {
-	    spawner.startSpawner();
-	}
-
-	for (Entry<Team, IslandSpawner> entry : this.islandSpawner.entrySet()) {
-	    entry.getValue().startSpawner();
-	}
+	this.generatorManager.run();
     }
 
     public void spawnVillager(HashMap<Team, Location> villagers, String name) {

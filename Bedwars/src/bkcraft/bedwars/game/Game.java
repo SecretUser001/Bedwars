@@ -131,6 +131,8 @@ public class Game {
 	    item.respawn(player);
 	}
 	
+	this.teamManager.addPotionEffects(player);
+	
 	Main.plugin.getEventHandler().call(new PlayerRespawnEvent(player));
     }
 

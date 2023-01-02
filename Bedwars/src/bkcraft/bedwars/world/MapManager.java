@@ -10,62 +10,62 @@ import bkcraft.bedwars.Main;
 
 public class MapManager {
 
-	Main plugin;
+    Main plugin;
 
-	final String WORLD_PREFIX = "game";
+    final String WORLD_PREFIX = "game";
 
-	public ArrayList<String> usedWorlds;
+    public ArrayList<String> usedWorlds;
 
-	int worldNumber;
+    int worldNumber;
 
-	public MapManager(Main plugin) {
-		this.plugin = plugin;
-		this.usedWorlds = new ArrayList<String>();
+    public MapManager(Main plugin) {
+	this.plugin = plugin;
+	this.usedWorlds = new ArrayList<String>();
 
-		this.worldNumber = 0;
+	this.worldNumber = 0;
+    }
+
+    public BedwarsMap createMap() {
+	String worldName = newWorldName();
+	this.usedWorlds.add(worldName);
+
+	BedwarsMap map = new BedwarsMap(worldName);
+
+	ArrayList<String> mapTemplates = getTemplateFiles();
+
+	if (mapTemplates.size() == 0) {
+	    Main.plugin.getLogger().log(Level.WARNING, "Cant find map templates");
+	    return map;
 	}
 
-	public BedwarsMap createMap() {
-		String worldName = newWorldName();
-		this.usedWorlds.add(worldName);
+	File template = new File(mapTemplates.get(Main.random.nextInt(mapTemplates.size())));
 
-		BedwarsMap map = new BedwarsMap(worldName);
+	map.addTemplate(template);
 
-		ArrayList<String> mapTemplates = getTemplateFiles();
-		
-		if(mapTemplates.size() == 0) {
-		    Main.plugin.getLogger().log(Level.WARNING, "Cant find map templates");
-		    return map;
-		}
-		
-		File template = new File(mapTemplates.get(Main.random.nextInt(mapTemplates.size())));
+	return map;
+    }
 
-		map.addTemplate(template);
+    public String newWorldName() {
+	this.worldNumber++;
+	this.usedWorlds.add(WORLD_PREFIX + this.worldNumber);
+	return WORLD_PREFIX + this.worldNumber;
+    }
 
-		return map;
+    public ArrayList<String> getTemplateFiles() {
+	ArrayList<String> returnFiles = new ArrayList<String>();
+
+	File mapFolder = new File(FilePaths.MAPS_FOLDER);
+
+	for (String fileName : mapFolder.list()) {
+	    if (fileName.endsWith(".schem")) {
+		returnFiles.add(FilePaths.MAPS_FOLDER + fileName);
+	    }
 	}
 
-	public String newWorldName() {
-		this.worldNumber++;
-		this.usedWorlds.add(WORLD_PREFIX + this.worldNumber);
-		return WORLD_PREFIX + this.worldNumber;
+	if (returnFiles.isEmpty()) {
+	    Bukkit.broadcastMessage("No Maps");
 	}
 
-	public ArrayList<String> getTemplateFiles() {
-		ArrayList<String> returnFiles = new ArrayList<String>();
-
-		File mapFolder = new File(FilePath.MAPS_FOLDER);
-
-		for (String fileName : mapFolder.list()) {
-			if (fileName.endsWith(".schem")) {
-				returnFiles.add(FilePath.MAPS_FOLDER + fileName);
-			}
-		}
-
-		if (returnFiles.isEmpty()) {
-			Bukkit.broadcastMessage("No Maps");
-		}
-
-		return returnFiles;
-	}
+	return returnFiles;
+    }
 }

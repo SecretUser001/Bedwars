@@ -19,6 +19,7 @@ import bkcraft.bedwars.events.VillagerHandler;
 import bkcraft.bedwars.events.WeatherHadler;
 import bkcraft.bedwars.events.bedwarsevents.EventHandler;
 import bkcraft.bedwars.game.Game;
+import bkcraft.bedwars.game.generator.GeneratorSettings;
 import bkcraft.bedwars.game.shop.items.potions.InvisibilityPotionBWI;
 import bkcraft.bedwars.game.shop.items.utils.BedbugBWI;
 import bkcraft.bedwars.game.shop.items.utils.BridgeeggBWI;
@@ -29,7 +30,7 @@ import bkcraft.bedwars.game.shop.items.utils.SpongeBWI;
 import bkcraft.bedwars.game.shop.items.utils.TNTBWI;
 import bkcraft.bedwars.game.shop.items.utils.WaterbucketBWI;
 import bkcraft.bedwars.game.shop.upgrades.Upgrade;
-import bkcraft.bedwars.world.FilePath;
+import bkcraft.bedwars.world.FilePaths;
 import bkcraft.bedwars.world.MapManager;
 import bkcraft.bedwars.world.MapUtils;
 import bkcraft.bedwars.world.ResourceExtractor;
@@ -73,9 +74,9 @@ public class Main extends JavaPlugin {
 
 	this.getCommand("game").setExecutor(new GameCmd());
 
-	FilePath.init();
+	FilePaths.init();
 
-	File mapFolder = new File(FilePath.MAPS_FOLDER);
+	File mapFolder = new File(FilePaths.MAPS_FOLDER);
 
 	if (!mapFolder.exists()) {
 	    ResourceExtractor resourceExtractor = new ResourceExtractor(this, getDataFolder(), "resources/", null);
@@ -86,6 +87,8 @@ public class Main extends JavaPlugin {
 	    }
 	}
 
+	GeneratorSettings.init();
+	
 	this.mapManager = new MapManager(this);
 	this.game = new Game(this.mapManager.createMap());
 	this.eventHandler = new EventHandler();
